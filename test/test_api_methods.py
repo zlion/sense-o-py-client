@@ -39,6 +39,10 @@ print 'SENSE-O is %sready' % ('' if api_call_response.text == 'true' else 'NOT '
 if api_call_response.text == 'false':
     exit()
 
+def print_json(text):
+    json_object = json.loads(text)
+    json_formatted_str = json.dumps(json_object, indent=2)
+    print(json_formatted_str)
 
 """
 API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
@@ -50,7 +54,7 @@ for endpoint in ['/sense/discovery/edgepoints/urn:ogf:network:ultralight.org:201
     test_api_url = '%s/%s' % (api_url, endpoint)
     api_call_headers = {'Authorization': 'Bearer ' + tokens['access_token']}
     api_call_response = requests.get(test_api_url, headers=api_call_headers, verify=False)
-    print "Request: " + test_api_url
+    print "Request:\n" + test_api_url
     print "Response:"
-    print api_call_response.text
+    print_json(api_call_response.text)
     print '='*100
