@@ -50,11 +50,14 @@ API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
 
 print "\n# Testing Method #1\n"
 
-for endpoint in ['/sense/discovery/edgepoints/urn:ogf:network:ultralight.org:2013']:
+for endpoint in ['/sense/discovery/edgepoints/urn:ogf:network:ultralight.org:2013', '/sense/discovery/edgepoints/urn:ogf:network:es.net:2013:']:
     test_api_url = '%s/%s' % (api_url, endpoint)
     api_call_headers = {'Authorization': 'Bearer ' + tokens['access_token']}
     api_call_response = requests.get(test_api_url, headers=api_call_headers, verify=False)
     print "Request:\n" + test_api_url
-    print "Response:"
-    print_json(api_call_response.text)
+    print "Response (code=%s):" % (api_call_response.status_code)
+    if (api_call_response.status_code == 200):
+        print_json(api_call_response.text)
+    else:
+       print ">>> Something Wrong <<<" 
     print '='*100
