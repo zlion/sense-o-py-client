@@ -1,0 +1,53 @@
+import os
+import json
+import requests
+from yaml import load as yload
+
+class MainClient(object):
+    def __init__(self):
+        # For now only pass config file; Later all params
+        self.token, self.config = None, None
+        self.getConfig()
+        self._getToken()
+        pass
+
+    def _getToken(self):
+        data = {'grant_type': 'password',
+                'username': self.config['USERNAME'],
+                'password': self.config['PASSWORD']}
+        tokenResponse = requests.post(self.config['AUTH_ENDPOINT'],
+                                      data=data,
+                                      verify=self.config['verify'],
+                                      allow_redirects=self.config['allow_redirects'],
+                                      auth=(self.config['CLIENT_ID'], self.config['SECRET']))
+        self.token = json.loads(tokenResponse.text)
+        if 'error' in self.token.keys() and 'error_description' in self.token.keys():
+            raise Exception("Failed to get token. Bad credentials? Error: %s" % self.token['error_description'])
+        self._setHeaders()
+
+    def _setHeaders(self):
+        self.config['headers'] = {'Authorization': 'Bearer ' + self.token['access_token']}
+
+    def _refreshToken(self):
+        self._getToken()
+
+    def _setDefaults(self):
+        for key, val in {'verify': False,
+                         'allow_redirects': False,
+                         'REST_API': "%s/StackV-web/restapi" % self.config['API_ENDPOINT']}.items():
+            if key not in self.config.keys():
+                self.config[key] = val
+
+    def _validateConfig(self):
+        for param in ['AUTH_ENDPOINT', 'API_ENDPOINT', 'USERNAME', 'PASSWORD', 'CLIENT_ID', 'SECRET']:
+            if param not in self.config.keys():
+                raise Exception('Config parameter %s is not set' % param)
+
+
+    def getConfig(self, configFile='/etc/sense-o-auth.yaml'):
+        if not os.path.isfile(configFile):
+            raise Exception('Config file not found: %s' % configFile)
+        with open(configFile, 'r') as fd:
+            self.config = yload(fd.read())
+        self._validateConfig()
+        self._setDefaults()
