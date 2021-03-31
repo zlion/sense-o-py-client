@@ -3,46 +3,49 @@ import requests
 from sense.common import evalInput
 from sense.client.mainclient import MainClient
 
-class RequestClient(MainClient):
+class RequestWrapper(MainClient):
    def __init__(self):
-      super(RequestClient, self).__init__()
+      super(RequestWrapper, self).__init__()
 
-   def get_service(self, tags):
+   def _get(self, tags):
       url = self.config['REST_API'] + tags
-      try:
-         out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'])
-      except:
-         self.getConfig()
+      out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'])
+      if out.status_code == 401:
          self._refreshToken()
          out = requests.get(url, headers=self.config['headers'], verify=self.config['verify']) 
       return evalInput(out.text)
 
-   def put_service(self, tags):
+   def _put(self, tags):
       url = self.config['REST_API'] + tags
-      try:
-         out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'])
-      except:
-         self.getConfig()
+      out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'])
+      if out.status_code == 401:
          self._refreshToken()
          out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'])
       return evalInput(out.text)
 
-   def post_service(self, intent, tags):
+   def _post(self, tags, intent):
       url = self.config['REST_API'] + tags
-      try:
-         out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data = intent)
-      except:
-         self.getConfig()
+      out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data = intent)
+      if out.status_code == 401:
          self._refreshToken()
          out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data = intent)
       return evalInput(out.text)
 
-   def delete_service(self, tags):
+   def _delete(self, tags):
       url = self.config['REST_API'] + tags
-      try:
-         out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify'])
-      except:
-         self.getConfig()
+      out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify'])
+      if out.status_code == 401:
          self._refreshToken()
          out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify']) 
       return evalInput(out.text)
+
+   def request_wrapper(self, call_type, tags, **kwargs):
+      if call_type == "GET":
+         self._get(tags)
+      elif call_type == "PUT":
+         self._put(tags)
+      elif call_type == "POST":
+         for arg in kwargs.values():
+            self._post(tags, arg)
+      elif call_type == "DELETE":
+         self._delete(tags)

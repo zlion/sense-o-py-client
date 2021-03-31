@@ -29,6 +29,7 @@ class MainClient(object):
         self.config['headers'] = {'Authorization': 'Bearer ' + self.token['access_token']}
 
     def _refreshToken(self):
+        self.getConfig()
         self._getToken()
 
     def _setDefaults(self):
