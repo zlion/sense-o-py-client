@@ -25,10 +25,9 @@ class ServiceClient(RequestWrapper):
 
    def reserve(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/reserve"
-      if intent == "":
+      if kwargs.__len__() == 0:
          return self.request_wrapper("PUT", tags, **kwargs)
-      else:
-         return self.request_wrapper("POST", tags, **kwargs)
+      return self.request_wrapper("POST", tags, **kwargs)
 
    def status(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/status"

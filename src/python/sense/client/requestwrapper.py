@@ -1,4 +1,3 @@
-import json
 import requests
 from sense.common import evalInput
 from sense.client.mainclient import MainClient
