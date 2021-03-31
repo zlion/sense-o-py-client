@@ -1,4 +1,4 @@
-from sense.client.requestclient import RequestWrapper
+from sense.client.requestwrapper import RequestWrapper
 class ServiceClient(RequestWrapper):
    def __init__(self):
       super(ServiceClient, self).__init__()
