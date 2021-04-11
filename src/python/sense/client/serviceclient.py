@@ -1,63 +1,38 @@
-import json
-import requests
-from sense.common import evalInput
-from sense.client.mainclient import MainClient
+from sense.client.requestwrapper import RequestWrapper
+class ServiceClient(RequestWrapper):
+   def __init__(self):
+      super(ServiceClient, self).__init__()
 
-class ServiceClient(MainClient):
-    def __init__(self):
-        super(DriverClient, self).__init__()
-
-    def get_service(self, tags):
-        url = self.config['REST_API'] + tags
-        out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'], auth=(self.config['CLIENT_ID'], self.config['SECRET']))
-        return evalInput(out.text)
-
-    def put_service(self, tags):
-        url = self.config['REST_API'] + tags
-        out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'], auth=(self.config['CLIENT_ID'], self.config['SECRET']))
-        return evalInput(out.text)
-
-    def post_service(self, intent, tags):
-        url = self.config['REST_API'] + tags
-        out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data = intent, auth=(self.config['CLIENT_ID'], self.config['SECRET']))
-        return evalInput(out.text)
-
-    def delete_service(self, tags):
-        url = self.config['REST_API'] + tags
-        out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify'], auth=(self.config['CLIENT_ID'], self.config['SECRET']))
-        return evalInput(out.text)
-
-   def commit(self, uuid):
+   def commit(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/commit"
-      return self.put_service(tags)
+      return self.request_wrapper("PUT", tags, **kwargs)
 
-   def create(self, intent, uuid):
+   def create(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid
-      return post_service(self, intent, tags)
+      return self.request_wrapper("POST", tags, **kwargs)
 
-   def delete(self, uuid):
+   def delete(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid
-      return self.based_on_type("DELETE", link)
+      return self.request_wrapper("DELETE", tags, **kwargs)
 
-   def manifest(self, instance_id):
+   def manifest(self, instance_id, **kwargs):
       tags = "/service/manifest/" + instance_id
-      return post_service(self, intent, tags)
+      return self.request_wrapper("POST", tags, **kwargs)
 
-   def release(self, uuid):
+   def release(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/release"
-      return self.put_service(tags)
+      return self.request_wrapper("PUT", tags, **kwargs)
 
-   def reserve(self, intent, uuid):
+   def reserve(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/reserve"
-      if intent == "":
-         return self.put_service(tags)
-      else:
-         return post_service(self, intent, tags)
+      if kwargs.__len__() == 0:
+         return self.request_wrapper("PUT", tags, **kwargs)
+      return self.request_wrapper("POST", tags, **kwargs)
 
-   def status(self, uuid):
+   def status(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/status"
-      return self.get_service(self, tags)
+      return self.request_wrapper("GET", tags, **kwargs)
 
-   def terminate(self, uuid):
+   def terminate(self, uuid, **kwargs):
       tags = "/sense/service/" + uuid + "/terminate"
-      return self.put_service(tags)
+      return self.request_wrapper("PUT", tags, **kwargs)
