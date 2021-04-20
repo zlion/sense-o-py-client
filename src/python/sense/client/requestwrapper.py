@@ -1,6 +1,8 @@
 import requests
-from sense.common import evalInput
-from sense.client.mainclient import MainClient
+import sys
+sys.path.insert(0,'..')
+from common import evalInput
+from client.mainclient import MainClient
 
 class RequestWrapper(MainClient):
    def __init__(self):
