@@ -14,7 +14,7 @@ class RequestWrapper(MainClient):
       if out.status_code == 401:
          self._refreshToken()
          out = requests.get(url, headers=self.config['headers'], verify=self.config['verify']) 
-      return evalInput(out.text)
+      return out.text
 
    def _put(self, tags):
       url = self.config['REST_API'] + tags

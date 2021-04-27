@@ -1,4 +1,5 @@
 import requests,json, getpass
+import json
 from yaml import load as yload
 import urllib3
 from workflow_combined_api import WorkflowCombinedApi
@@ -17,7 +18,7 @@ api_url = output['API_ENDPOINT']
 RO_user = output['USERNAME']
 RO_password = output['PASSWORD']
 
-client_id = output['CLIEND_ID']
+client_id = output['CLIENT_ID']
 client_secret = output['SECRET']
 
 data = {'grant_type': 'password','username': RO_user, 'password': RO_password}
@@ -52,4 +53,4 @@ API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
 print "\n# Testing Method #1\n"
 
 test_obj = WorkflowCombinedApi()
-print_json(test_obj.sense_service_get())
+print(test_obj.sense_service_get())
