@@ -1,5 +1,5 @@
 AUTH_ENDPOINT: https://sense-o-east.es.net:8543/auth/realms/StackV/protocol/openid-connect/token
-API_ENDPOINT: https://sense-o-east.es.net:8443/StackV-web/restapi
+API_ENDPOINT: https://sense-o-east.es.net:8443
 CLIENT_ID: StackV
 USERNAME: egan
 PASSWORD: EFCFAA91-AA5C-42E8-8413-BBD9FCAE65EB

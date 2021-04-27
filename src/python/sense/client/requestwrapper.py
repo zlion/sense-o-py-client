@@ -14,6 +14,7 @@ class RequestWrapper(MainClient):
       if out.status_code == 401:
          self._refreshToken()
          out = requests.get(url, headers=self.config['headers'], verify=self.config['verify']) 
+      print(out)
       return out.text
 
    def _put(self, tags):
@@ -42,11 +43,11 @@ class RequestWrapper(MainClient):
 
    def request_wrapper(self, call_type, tags, **kwargs):
       if call_type == "GET":
-         self._get(tags)
+         return self._get(tags)
       elif call_type == "PUT":
-         self._put(tags)
+         return self._put(tags)
       elif call_type == "POST":
          for arg in kwargs.values():
-            self._post(tags, arg)
+            return self._post(tags, arg)
       elif call_type == "DELETE":
-         self._delete(tags)
+         return self._delete(tags)
