@@ -17,8 +17,7 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
-from swagger_client.api_client import ApiClient
-from sense.client.requestwrapper import RequestWrapper
+from requestwrapper import RequestWrapper
 
 
 class WorkflowCombinedApi(object):
@@ -28,10 +27,7 @@ class WorkflowCombinedApi(object):
     Ref: https://github.com/swagger-api/swagger-codegen
     """
 
-    def __init__(self, api_client=None, req_wrapper=None):
-        if api_client is None:
-            api_client = ApiClient()
-        self.api_client = api_client
+    def __init__(self, req_wrapper=None):
         if req_wrapper is None:
             req_wrapper = RequestWrapper()
         self.req_wrapper = req_wrapper
