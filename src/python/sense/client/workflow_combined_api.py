@@ -571,18 +571,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['text/plain'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'GET', '/sense/service/',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
