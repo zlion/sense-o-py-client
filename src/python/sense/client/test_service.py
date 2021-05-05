@@ -2,7 +2,9 @@ import requests,json, getpass
 import json
 from yaml import load as yload
 import urllib3
+import time
 from workflow_combined_api import WorkflowCombinedApi
+from requestwrapper import RequestWrapper
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
@@ -53,4 +55,11 @@ API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
 print "\n# Testing Method #1\n"
 
 test_obj = WorkflowCombinedApi()
-print(test_obj.sense_service_get())
+print(test_obj.profile_list_get())
+counter = 1
+while True:
+    print("This is minute " + str(counter))
+    print(test_obj.sense_service_get())
+    print("")
+    time.sleep(60)
+    counter += 1

@@ -10,8 +10,10 @@ class RequestWrapper(MainClient):
 
    def _get(self, tags):
       url = self.config['REST_API'] + tags
+      print(url)
       out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'])
       if out.status_code == 401:
+         print("got to refresh case")
          self._refreshToken()
          out = requests.get(url, headers=self.config['headers'], verify=self.config['verify']) 
       print(out)
@@ -47,7 +49,12 @@ class RequestWrapper(MainClient):
       elif call_type == "PUT":
          return self._put(tags)
       elif call_type == "POST":
+         result = []
          for arg in kwargs.values():
-            return self._post(tags, arg)
+            result.append(self._post(tags, arg))
+         if len(result) == 1:
+            return result[0]
+         else:
+            return result
       elif call_type == "DELETE":
          return self._delete(tags)

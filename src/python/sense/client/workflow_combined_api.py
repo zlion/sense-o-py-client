@@ -129,9 +129,6 @@ class WorkflowCombinedApi(object):
 
         return self.req_wrapper.request_wrapper(
             'PUT', '/instance/{siUUID}/{action}',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -215,18 +212,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'GET', '/intent/instance/{siUUID}',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -302,18 +293,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'GET', '/profile',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -389,18 +374,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'GET', '/profile/list',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -484,18 +463,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'GET', '/profile/{uuid}',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -660,18 +633,12 @@ class WorkflowCombinedApi(object):
         local_var_files = {}
 
         body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['text/plain'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'DELETE', '/sense/service/{siUUID}',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
@@ -763,22 +730,13 @@ class WorkflowCombinedApi(object):
         body_params = None
         if 'body' in params:
             body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
 
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
         return self.req_wrapper.request_wrapper(
             'POST', '/sense/service/{siUUID}',
-            path_params,
-            query_params,
-            header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
