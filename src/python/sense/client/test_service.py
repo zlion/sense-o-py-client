@@ -55,11 +55,12 @@ API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
 print "\n# Testing Method #1\n"
 
 test_obj = WorkflowCombinedApi()
-print(test_obj.profile_list_get())
+#print(test_obj.profile_get())
+print(test_obj.profile_get())
 counter = 1
 while True:
     print("This is minute " + str(counter))
-    print(test_obj.sense_service_get())
+    print(test_obj.instance_get())
     print("")
     time.sleep(60)
     counter += 1
