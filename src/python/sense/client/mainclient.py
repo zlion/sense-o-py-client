@@ -26,7 +26,7 @@ class MainClient(object):
         self._setHeaders()
 
     def _setHeaders(self):
-        self.config['headers'] = {'Authorization': 'Bearer ' + self.token['access_token']}
+        self.config['headers'] = {'Content-type':'application/json', 'Accept':'application/json', 'Authorization': 'Bearer ' + self.token['access_token']}
 
     def _refreshToken(self):
         self.getConfig()

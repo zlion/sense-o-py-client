@@ -55,12 +55,35 @@ API TEST CASES  by https://github.com/sdn-sense/sense-o-py-client/issues/1
 print "\n# Testing Method #1\n"
 
 test_obj = WorkflowCombinedApi()
-#print(test_obj.profile_get())
+print("Testing Profile Get:")
 print(test_obj.profile_get())
-counter = 1
-while True:
-    print("This is minute " + str(counter))
-    print(test_obj.instance_get())
-    print("")
-    time.sleep(60)
-    counter += 1
+print("")
+#print(test_obj.profile_get())
+print("Starting New Instance (si_uuid): ")
+print(test_obj.instance_get())
+print(test_obj.si_uuid)
+print("")
+print("Deleting Instance:")
+print(test_obj.instance_si_uuid_delete(test_obj.si_uuid))
+print(test_obj.si_uuid)
+print("")
+test_obj.instance_get()
+print("Testing Get for Specific si_uuid: ")
+print(test_obj.intent_instance_si_uuid_get(test_obj.si_uuid))
+print("")
+print("Testing put:")
+print(test_obj.instance_si_uuid_action_put(test_obj.si_uuid, 'cancel'))
+print("")
+input_file = open("../requests/request-1s.json")
+test_intent = json.load(input_file)
+print("Testing Post:")  
+print(test_intent)
+print(test_obj.instance_si_uuid_post(test_intent, test_obj.si_uuid))
+# counter = 1
+# while True:
+#     print("This is minute " + str(counter))
+#     print(test_obj.instance_get())
+#     print(test_obj.si_uuid)
+#     print("")
+#     time.sleep(60)
+#     counter += 1

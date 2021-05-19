@@ -1,0 +1,40 @@
+{
+  "service": "dnc",
+  "alias": "SENSE-API-2.0-Alpha-T1",
+  "data": {
+    "format": "intent",
+    "type": "Multi-Path P2P VLAN",
+    "connections": [
+      {
+        "bandwidth": {
+          "qos_class": "guaranteedCapped",
+          "capacity": "1000"
+        },
+        "name": "Connection 1",
+        "terminals": [
+          {
+            "vlan_tag": "any",
+            "uri": "urn:ogf:network:maxgigapop.net:2013:180-132.research.maxgigapop.net"
+          },
+          {
+            "vlan_tag": "any",
+            "uri": "urn:ogf:network:maxgigapop.net:2013:s0:1_1:wash-cr5"
+          }
+        ]
+      }
+    ]
+  },
+  "queries": [
+    {
+      "ask": "flexible-schedule",
+      "options": [
+        {
+            "name": "Connection 1",
+            "start-after": "+1d",
+            "end-before": "+2d",
+            "duration": "+2h"
+        }
+      ]
+    }
+  ]
+}
