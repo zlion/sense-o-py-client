@@ -1,0 +1,11 @@
+{
+  "service": "dnc",
+  "alias": "SENSE-API-2.0-Alpha-T1",
+  "data": {
+    "uuid": "F7A36325-0E17-44A8-A29F-607600F288A1",
+    "params": {
+          "qos_class": "guaranteedCapped",
+          "capacity": "1000"
+     }
+  }
+}

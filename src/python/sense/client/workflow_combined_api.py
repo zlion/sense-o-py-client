@@ -31,6 +31,7 @@ class WorkflowCombinedApi(object):
         if req_wrapper is None:
             req_wrapper = RequestWrapper()
         self.req_wrapper = req_wrapper
+        self.si_uuid = None
 
     def instance_get(self, **kwargs):  # noqa: E501
         """Generate new service instance UUID  # noqa: E501
@@ -48,9 +49,12 @@ class WorkflowCombinedApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_get_with_http_info(**kwargs)  # noqa: E501
+            data = self.instance_get_with_http_info(**kwargs)
+            self.si_uuid = data
+            return data # noqa: E501
         else:
             (data) = self.instance_get_with_http_info(**kwargs)  # noqa: E501
+            self.si_uuid = data
             return data
 
     def instance_get_with_http_info(self, **kwargs):  # noqa: E501
@@ -237,6 +241,8 @@ class WorkflowCombinedApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
+        if si_uuid == self.si_uuid:
+            self.si_uuid = None
         if kwargs.get('async_req'):
             return self.instance_si_uuid_delete_with_http_info(si_uuid, **kwargs)  # noqa: E501
         else:
@@ -392,19 +398,8 @@ class WorkflowCombinedApi(object):
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
         return self.req_wrapper.request_wrapper(
-            'POST', '/instance/' + si_uuid,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ServiceIntentResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            'POST', '/instance/' + si_uuid, body)
 
     def intent_instance_si_uuid_get(self, si_uuid, **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
