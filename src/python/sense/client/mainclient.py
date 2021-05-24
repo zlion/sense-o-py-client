@@ -35,7 +35,7 @@ class MainClient(object):
     def _setDefaults(self):
         for key, val in {'verify': False,
                          'allow_redirects': False,
-                         'REST_API': "%s/StackV-web/restapi" % self.config['API_ENDPOINT']}.items():
+                         'REST_API': self.config['API_ENDPOINT']}.items():
             if key not in self.config.keys():
                 self.config[key] = val
 
@@ -45,7 +45,7 @@ class MainClient(object):
                 raise Exception('Config parameter %s is not set' % param)
 
 
-    def getConfig(self, configFile='../../../../auth.yaml'):
+    def getConfig(self, configFile='/etc/sense-o-auth.yaml'):
         if not os.path.isfile(configFile):
             raise Exception('Config file not found: %s' % configFile)
         with open(configFile, 'r') as fd:

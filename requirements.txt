@@ -1,1 +1,3 @@
-pip install pyyaml
+six
+requests
+pyyaml
