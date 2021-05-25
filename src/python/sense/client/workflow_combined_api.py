@@ -17,7 +17,7 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
-from requestwrapper import RequestWrapper
+from sense.client.requestwrapper import RequestWrapper
 
 
 class WorkflowCombinedApi(object):

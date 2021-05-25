@@ -1,23 +1,20 @@
 import sys
-sys.path.append('../../')
+sys.path.append('../src/python')
 
 import requests,json, getpass
 import json
 from yaml import load as yload
-import urllib3
-import time
-from workflow_combined_api import WorkflowCombinedApi
+from yaml import FullLoader
 
 from sense.models.service_intent import ServiceIntent
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
+from sense.client.workflow_combined_api import WorkflowCombinedApi
 
 
 output = {}
 filename = '/etc/sense-o-auth.yaml'
 with open(filename, 'r') as fd:
-    output = yload(fd.read())
+    output = yload(fd.read(), Loader=FullLoader)
 
 # https://hostname:8543/auth/realms/StackV/protocol/openid-connect/token
 token_url = output['AUTH_ENDPOINT']
@@ -80,7 +77,7 @@ print("")
 print("Testing put:")
 print(test_obj.instance_si_uuid_action_put(test_obj.si_uuid, 'cancel'))
 print("")
-intent_file = open("../requests/request-1.json")
+intent_file = open("./requests/request-1.json")
 body = json.load(intent_file)
 
 #intent_data_file = open("../requests/request-1-data.json")

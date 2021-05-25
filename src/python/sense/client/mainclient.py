@@ -2,6 +2,7 @@ import os
 import json
 import requests
 from yaml import load as yload
+from yaml import FullLoader
 
 class MainClient(object):
     def __init__(self):
@@ -49,6 +50,6 @@ class MainClient(object):
         if not os.path.isfile(configFile):
             raise Exception('Config file not found: %s' % configFile)
         with open(configFile, 'r') as fd:
-            self.config = yload(fd.read())
+            self.config = yload(fd.read(), Loader=FullLoader)
         self._validateConfig()
         self._setDefaults()

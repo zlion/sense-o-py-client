@@ -1,8 +1,10 @@
-import requests
 import sys
 sys.path.insert(0,'..')
-from sense.common import evalInput
-from mainclient import MainClient
+from sense.client.mainclient import MainClient
+
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class RequestWrapper(MainClient):
    def __init__(self):
