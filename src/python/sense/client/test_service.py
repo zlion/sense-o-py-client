@@ -7,8 +7,12 @@ from yaml import load as yload
 import urllib3
 import time
 from workflow_combined_api import WorkflowCombinedApi
-from requestwrapper import RequestWrapper
+
+from sense.models.service_intent import ServiceIntent
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
 
 output = {}
 filename = '/etc/sense-o-auth.yaml'
@@ -76,11 +80,13 @@ print("")
 print("Testing put:")
 print(test_obj.instance_si_uuid_action_put(test_obj.si_uuid, 'cancel'))
 print("")
-input_file = open("../requests/request-1s.json")
-test_intent = json.load(input_file)
-print("Testing Post:")  
-print(test_intent)
-print(test_obj.instance_si_uuid_post(test_intent, test_obj.si_uuid))
+input_file = open("../requests/request-1s-data.json")
+test_intent_data = json.load(input_file)
+
+body = ServiceIntent(service='dnc',alias="SENSE-API-2.0-Alpha-T1s",data=test_intent_data) # ServiceIntent | Service instance creation request object.
+
+print(body)
+print(test_obj.instance_si_uuid_post(body, test_obj.si_uuid))
 # counter = 1
 # while True:
 #     print("This is minute " + str(counter))
