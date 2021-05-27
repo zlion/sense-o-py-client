@@ -28,12 +28,10 @@ class WorkflowCombinedApi(object):
     """
 
     def __init__(self, req_wrapper=None):
-        if req_wrapper is None:
-            req_wrapper = RequestWrapper()
-        self.req_wrapper = req_wrapper
+        self.client = RequestWrapper()
         self.si_uuid = None
 
-    def instance_get(self, **kwargs):  # noqa: E501
+    def instance_new(self, **kwargs):  # noqa: E501
         """Generate new service instance UUID  # noqa: E501
 
         Retrieves UUID for new instance from backend.  # noqa: E501
@@ -88,10 +86,10 @@ class WorkflowCombinedApi(object):
             params[key] = val
         del params['kwargs']
 
-        return self.req_wrapper.request(
+        return self.client.request(
             'GET', '/instance')
 
-    def instance_si_uuid_action_put(self, si_uuid, action, **kwargs):  # noqa: E501
+    def instance_operate(self, action, **kwargs):  # noqa: E501
         """Operate on a service instance  # noqa: E501
 
         Request an operation for specified service instance.  # noqa: E501
@@ -110,7 +108,12 @@ class WorkflowCombinedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
+        si_uuid = self.si_uuid
+        if kwargs.get('si_uuid'):
+            si_uuid = kwargs.get('si_uuid')
+        if not si_uuid:
+            raise ValueError("Missing the required parameter `si_uuid`")
+
         if kwargs.get('async_req'):
             return self.instance_si_uuid_action_put_with_http_info(si_uuid, action, **kwargs)  # noqa: E501
         else:
@@ -169,9 +172,9 @@ class WorkflowCombinedApi(object):
         if 'intent' in params:
             query_params.append(('intent', params['intent']))
 
-        return self.req_wrapper.request('PUT', '/instance/' + si_uuid + '/' + action, query_params=query_params)
+        return self.client.request('PUT', '/instance/' + si_uuid + '/' + action, query_params=query_params)
 
-    def instance_si_uuid_delete(self, si_uuid, **kwargs):  # noqa: E501
+    def instance_delete(self, **kwargs):  # noqa: E501
         """Delete a service instance  # noqa: E501
 
         Deletes the specified service instance.  # noqa: E501
@@ -186,9 +189,13 @@ class WorkflowCombinedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        si_uuid = self.si_uuid
+        if kwargs.get('si_uuid'):
+            si_uuid = kwargs.get('si_uuid')
+        if not si_uuid:
+            raise ValueError("Missing the required parameter `si_uuid`")
+
         kwargs['_return_http_data_only'] = True
-        if si_uuid == self.si_uuid:
-            self.si_uuid = None
         if kwargs.get('async_req'):
             return self.instance_si_uuid_delete_with_http_info(si_uuid, **kwargs)  # noqa: E501
         else:
@@ -231,10 +238,10 @@ class WorkflowCombinedApi(object):
                 params['si_uuid'] is None):
             raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`")  # noqa: E501
 
-        return self.req_wrapper.request(
+        return self.client.request(
             'DELETE', '/instance/' + si_uuid)
 
-    def instance_si_uuid_post(self, body, si_uuid, **kwargs):  # noqa: E501
+    def instance_create(self, intent, **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
 
         Creates a new service instance with the given UUID and intent specification or add new intent to existing service instance  # noqa: E501
@@ -250,11 +257,17 @@ class WorkflowCombinedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        si_uuid = self.si_uuid
+        if kwargs.get('si_uuid'):
+            si_uuid = kwargs.get('si_uuid')
+        if not si_uuid:
+            raise ValueError("Missing the required parameter `si_uuid`")
+
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_post_with_http_info(body, si_uuid, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_post_with_http_info(intent, si_uuid, **kwargs)  # noqa: E501
         else:
-            (data) = self.instance_si_uuid_post_with_http_info(body, si_uuid, **kwargs)  # noqa: E501
+            (data) = self.instance_si_uuid_post_with_http_info(intent, si_uuid, **kwargs)  # noqa: E501
             return data
 
     def instance_si_uuid_post_with_http_info(self, body, si_uuid, **kwargs):  # noqa: E501
@@ -306,10 +319,10 @@ class WorkflowCombinedApi(object):
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
-        return self.req_wrapper.request(
+        return self.client.request(
             'POST', '/instance/' + si_uuid, body_params=body)
 
-    def intent_instance_si_uuid_get(self, si_uuid, **kwargs):  # noqa: E501
+    def instance_get_intents(self, **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
 
         Queries all service intents belonging to given instance UUID.  # noqa: E501
@@ -324,6 +337,12 @@ class WorkflowCombinedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        si_uuid = self.si_uuid
+        if kwargs.get('si_uuid'):
+            si_uuid = kwargs.get('si_uuid')
+        if not si_uuid:
+            raise ValueError("Missing the required parameter `si_uuid`")
+
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
             return self.intent_instance_si_uuid_get_with_http_info(si_uuid, **kwargs)  # noqa: E501
@@ -367,10 +386,10 @@ class WorkflowCombinedApi(object):
                 params['si_uuid'] is None):
             raise ValueError("Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`")  # noqa: E501
 
-        return self.req_wrapper.request(
+        return self.client.request(
             'GET', '/intent/instance/' + si_uuid)
 
-    def profile_get(self, **kwargs):  # noqa: E501
+    def profile_list(self, **kwargs):
         """Get skimmed profile data  # noqa: E501
 
         Retrieves the list of profiles the user is permitted to use without any JSON data.  # noqa: E501
@@ -391,7 +410,7 @@ class WorkflowCombinedApi(object):
             (data) = self.profile_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def profile_get_with_http_info(self, **kwargs):  # noqa: E501
+    def profile_get_with_http_info(self, **kwargs):
         """Get skimmed profile data  # noqa: E501
 
         Retrieves the list of profiles the user is permitted to use without any JSON data.  # noqa: E501
@@ -406,7 +425,7 @@ class WorkflowCombinedApi(object):
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = []
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -422,10 +441,10 @@ class WorkflowCombinedApi(object):
             params[key] = val
         del params['kwargs']
 
-        return self.req_wrapper.request(
+        return self.client.request(
             'GET', '/profile')
 
-    def profile_uuid_get(self, uuid, **kwargs):  # noqa: E501
+    def profile_describe(self, uuid, **kwargs):  # noqa: E501
         """Get single profile  # noqa: E501
 
         Retrieves the specified profile.  # noqa: E501
@@ -483,5 +502,5 @@ class WorkflowCombinedApi(object):
                 params['uuid'] is None):
             raise ValueError("Missing the required parameter `uuid` when calling `profile_uuid_get`")  # noqa: E501
 
-        return self.req_wrapper.request(
+        return self.client.request(
             'GET', '/profile/' + uuid)

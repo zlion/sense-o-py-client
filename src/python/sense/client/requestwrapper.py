@@ -1,7 +1,7 @@
 import sys
 
 sys.path.insert(0, '..')
-from sense.client.mainclient import MainClient
+from sense.client.apiclient import ApiClient
 
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -9,7 +9,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
-class RequestWrapper(MainClient):
+class RequestWrapper(ApiClient):
     def __init__(self):
         super(RequestWrapper, self).__init__()
 
