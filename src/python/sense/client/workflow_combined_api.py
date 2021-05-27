@@ -88,34 +88,8 @@ class WorkflowCombinedApi(object):
             params[key] = val
         del params['kwargs']
 
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'GET', '/instance',
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='str',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request(
+            'GET', '/instance')
 
     def instance_si_uuid_action_put(self, si_uuid, action, **kwargs):  # noqa: E501
         """Operate on a service instance  # noqa: E501
@@ -163,7 +137,7 @@ class WorkflowCombinedApi(object):
                  returns the request thread.
         """
 
-        all_params = ['si_uuid', 'action', 'sync', 'force', 'intent']  # noqa: E501
+        all_params = ['si_uuid', 'action', 'sync', 'force', 'intent']
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -187,43 +161,15 @@ class WorkflowCombinedApi(object):
                 params['action'] is None):
             raise ValueError("Missing the required parameter `action` when calling `instance_si_uuid_action_put`")  # noqa: E501
 
-        collection_formats = {}
-
-        path_params = {}
-        if 'si_uuid' in params:
-            path_params['siUUID'] = params['si_uuid']  # noqa: E501
-        if 'action' in params:
-            path_params['action'] = params['action']  # noqa: E501
-
         query_params = []
         if 'sync' in params:
-            query_params.append(('sync', params['sync']))  # noqa: E501
+            query_params.append(('sync', params['sync']))
         if 'force' in params:
-            query_params.append(('force', params['force']))  # noqa: E501
+            query_params.append(('force', params['force']))
         if 'intent' in params:
-            query_params.append(('intent', params['intent']))  # noqa: E501
+            query_params.append(('intent', params['intent']))
 
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'PUT', '/instance/' + si_uuid + '/' + action,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request('PUT', '/instance/' + si_uuid + '/' + action, query_params=query_params)
 
     def instance_si_uuid_delete(self, si_uuid, **kwargs):  # noqa: E501
         """Delete a service instance  # noqa: E501
@@ -285,35 +231,8 @@ class WorkflowCombinedApi(object):
                 params['si_uuid'] is None):
             raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`")  # noqa: E501
 
-        collection_formats = {}
-
-        path_params = {}
-        if 'si_uuid' in params:
-            path_params['siUUID'] = params['si_uuid']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'DELETE', '/instance/' + si_uuid,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request(
+            'DELETE', '/instance/' + si_uuid)
 
     def instance_si_uuid_post(self, body, si_uuid, **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
@@ -379,27 +298,16 @@ class WorkflowCombinedApi(object):
                 params['si_uuid'] is None):
             raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_post`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
         if 'si_uuid' in params:
             path_params['siUUID'] = params['si_uuid']  # noqa: E501
 
         query_params = []
 
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
-        return self.req_wrapper.request_wrapper(
-            'POST', '/instance/' + si_uuid, body)
+        return self.req_wrapper.request(
+            'POST', '/instance/' + si_uuid, body_params=body)
 
     def intent_instance_si_uuid_get(self, si_uuid, **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
@@ -459,36 +367,8 @@ class WorkflowCombinedApi(object):
                 params['si_uuid'] is None):
             raise ValueError("Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`")  # noqa: E501
 
-        collection_formats = {}
-
-        path_params = {}
-        if 'si_uuid' in params:
-            path_params['siUUID'] = params['si_uuid']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'GET', '/intent/instance/' + si_uuid,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[IntentExpanded]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request(
+            'GET', '/intent/instance/' + si_uuid)
 
     def profile_get(self, **kwargs):  # noqa: E501
         """Get skimmed profile data  # noqa: E501
@@ -542,34 +422,8 @@ class WorkflowCombinedApi(object):
             params[key] = val
         del params['kwargs']
 
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'GET', '/profile',
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='list[SlimProfile]',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request(
+            'GET', '/profile')
 
     def profile_uuid_get(self, uuid, **kwargs):  # noqa: E501
         """Get single profile  # noqa: E501
@@ -629,33 +483,5 @@ class WorkflowCombinedApi(object):
                 params['uuid'] is None):
             raise ValueError("Missing the required parameter `uuid` when calling `profile_uuid_get`")  # noqa: E501
 
-        collection_formats = {}
-
-        path_params = {}
-        if 'uuid' in params:
-            path_params['uuid'] = params['uuid']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-
-        # Authentication setting
-        auth_settings = ['oAuth2Keycloak']  # noqa: E501
-
-        return self.req_wrapper.request_wrapper(
-            'GET', '/profile/' + uuid,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FullProfile',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        return self.req_wrapper.request(
+            'GET', '/profile/' + uuid)

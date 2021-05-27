@@ -79,19 +79,9 @@ print(test_obj.instance_si_uuid_action_put(test_obj.si_uuid, 'cancel'))
 print("")
 intent_file = open("./requests/request-1.json")
 body = json.load(intent_file)
-
 #intent_data_file = open("../requests/request-1-data.json")
 #body = ServiceIntent(service='dnc',alias="SENSE-API-2.0-Alpha-T1s",data=json.load(intent_data_file)) # ServiceIntent | Service instance creation request object.
-
 print(body)
-
 print(test_obj.instance_si_uuid_post(json.dumps(body), test_obj.si_uuid))
 
-# counter = 1
-# while True:
-#     print("This is minute " + str(counter))
-#     print(test_obj.instance_get())
-#     print(test_obj.si_uuid)
-#     print("")
-#     time.sleep(60)
-#     counter += 1
+test_obj.instance_si_uuid_action_put(test_obj.si_uuid, 'provision')

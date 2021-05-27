@@ -4,7 +4,7 @@ import requests
 from yaml import load as yload
 from yaml import FullLoader
 
-class MainClient(object):
+class ApiClient(object):
     def __init__(self):
         # For now only pass config file; Later all params
         self.token, self.config = None, None
