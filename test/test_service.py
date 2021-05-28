@@ -1,12 +1,9 @@
 import sys
 sys.path.append('../src/python')
-
 import requests,json, getpass
 import json
 from yaml import load as yload
 from yaml import FullLoader
-
-from sense.models.service_intent import ServiceIntent
 
 from sense.client.workflow_combined_api import WorkflowCombinedApi
 

@@ -1,12 +1,7 @@
 import sys
-
+import requests
 sys.path.insert(0, '..')
 from sense.client.apiclient import ApiClient
-
-import requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 class RequestWrapper(ApiClient):
@@ -16,9 +11,7 @@ class RequestWrapper(ApiClient):
     def _get(self, api_path, params):
         url = self.config['REST_API'] + api_path
         out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'], params=params)
-        print(out)
         if out.status_code == 401:
-            print("got to refresh case")
             self._refreshToken()
             out = requests.get(url, headers=self.config['headers'], verify=self.config['verify'], params=params)
         return out.text
@@ -26,7 +19,6 @@ class RequestWrapper(ApiClient):
     def _put(self, api_path, params):
         url = self.config['REST_API'] + api_path
         out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'], params=params)
-        print(out)
         if out.status_code == 401:
             self._refreshToken()
             out = requests.put(url, headers=self.config['headers'], verify=self.config['verify'], params=params)
@@ -34,9 +26,7 @@ class RequestWrapper(ApiClient):
 
     def _post(self, api_path, data, params):
         url = self.config['REST_API'] + api_path
-        print(url)
         out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data=data, params=params)
-        print(out)
         if out.status_code == 401:
             self._refreshToken()
             out = requests.post(url, headers=self.config['headers'], verify=self.config['verify'], data=data, params=params)
@@ -45,7 +35,6 @@ class RequestWrapper(ApiClient):
     def _delete(self, api_path, params):
         url = self.config['REST_API'] + api_path
         out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify'], params=params)
-        print(out)
         if out.status_code == 401:
             self._refreshToken()
             out = requests.delete(url, headers=self.config['headers'], verify=self.config['verify'], params=params)

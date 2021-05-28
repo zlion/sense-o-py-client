@@ -2,10 +2,8 @@ import unittest
 import pytest
 import re
 import sys
-
 sys.path.append('../src/python')
 from sense.client.workflow_combined_api import WorkflowCombinedApi
-
 
 class TestWorkflowCombined(unittest.TestCase):
     def setUp(self) -> None:
