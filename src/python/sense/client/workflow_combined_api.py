@@ -11,12 +11,7 @@
 """
 
 from __future__ import absolute_import
-
-import re  # noqa: F401
-
-# python 2 and python 3 compatibility library
 import six
-
 from sense.client.requestwrapper import RequestWrapper
 
 
@@ -28,7 +23,10 @@ class WorkflowCombinedApi(object):
     """
 
     def __init__(self, req_wrapper=None):
-        self.client = RequestWrapper()
+        if req_wrapper is None:
+            self.client = RequestWrapper()
+        else:
+            self.client = req_wrapper
         self.si_uuid = None
 
     def instance_new(self, **kwargs):  # noqa: E501
@@ -49,7 +47,7 @@ class WorkflowCombinedApi(object):
         if kwargs.get('async_req'):
             data = self.instance_get_with_http_info(**kwargs)
             self.si_uuid = data
-            return data # noqa: E501
+            return data  # noqa: E501
         else:
             (data) = self.instance_get_with_http_info(**kwargs)  # noqa: E501
             self.si_uuid = data
@@ -89,6 +87,7 @@ class WorkflowCombinedApi(object):
         return self.client.request(
             'GET', '/instance')
 
+    # TODO: check action types and only allow for combined ops
     def instance_operate(self, action, **kwargs):  # noqa: E501
         """Operate on a service instance  # noqa: E501
 
@@ -158,11 +157,13 @@ class WorkflowCombinedApi(object):
         # verify the required parameter 'si_uuid' is set
         if ('si_uuid' not in params or
                 params['si_uuid'] is None):
-            raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_action_put`")  # noqa: E501
+            raise ValueError(
+                "Missing the required parameter `si_uuid` when calling `instance_si_uuid_action_put`")  # noqa: E501
         # verify the required parameter 'action' is set
         if ('action' not in params or
                 params['action'] is None):
-            raise ValueError("Missing the required parameter `action` when calling `instance_si_uuid_action_put`")  # noqa: E501
+            raise ValueError(
+                "Missing the required parameter `action` when calling `instance_si_uuid_action_put`")  # noqa: E501
 
         query_params = []
         if 'sync' in params:
@@ -236,7 +237,8 @@ class WorkflowCombinedApi(object):
         # verify the required parameter 'si_uuid' is set
         if ('si_uuid' not in params or
                 params['si_uuid'] is None):
-            raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`")  # noqa: E501
+            raise ValueError(
+                "Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`")  # noqa: E501
 
         return self.client.request(
             'DELETE', '/instance/' + si_uuid)
@@ -309,7 +311,8 @@ class WorkflowCombinedApi(object):
         # verify the required parameter 'si_uuid' is set
         if ('si_uuid' not in params or
                 params['si_uuid'] is None):
-            raise ValueError("Missing the required parameter `si_uuid` when calling `instance_si_uuid_post`")  # noqa: E501
+            raise ValueError(
+                "Missing the required parameter `si_uuid` when calling `instance_si_uuid_post`")  # noqa: E501
 
         path_params = {}
         if 'si_uuid' in params:
@@ -384,7 +387,8 @@ class WorkflowCombinedApi(object):
         # verify the required parameter 'si_uuid' is set
         if ('si_uuid' not in params or
                 params['si_uuid'] is None):
-            raise ValueError("Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`")  # noqa: E501
+            raise ValueError(
+                "Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`")  # noqa: E501
 
         return self.client.request(
             'GET', '/intent/instance/' + si_uuid)

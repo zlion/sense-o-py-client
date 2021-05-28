@@ -4,6 +4,7 @@ import requests
 from yaml import load as yload
 from yaml import FullLoader
 
+# TODO: config file path as init param
 class ApiClient(object):
     def __init__(self):
         # For now only pass config file; Later all params
@@ -27,7 +28,8 @@ class ApiClient(object):
         self._setHeaders()
 
     def _setHeaders(self):
-        self.config['headers'] = {'Content-type':'application/json', 'Accept':'application/json', 'Authorization': 'Bearer ' + self.token['access_token']}
+        self.config['headers'] = {'Content-type': 'application/json', 'Accept': 'application/json',
+                                  'Authorization': 'Bearer ' + self.token['access_token']}
 
     def _refreshToken(self):
         self.getConfig()
@@ -44,7 +46,6 @@ class ApiClient(object):
         for param in ['AUTH_ENDPOINT', 'API_ENDPOINT', 'USERNAME', 'PASSWORD', 'CLIENT_ID', 'SECRET']:
             if param not in self.config.keys():
                 raise Exception('Config parameter %s is not set' % param)
-
 
     def getConfig(self, configFile='/etc/sense-o-auth.yaml'):
         if not os.path.isfile(configFile):
