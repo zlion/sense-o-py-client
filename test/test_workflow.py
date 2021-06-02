@@ -14,6 +14,14 @@ class TestCombinedWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.client = WorkflowCombinedApi()
 
+    def tearDown(self) -> None:
+        if self.client.si_uuid is not None:
+            status = self.client.instance_get_status()
+            if 'CANCEL - READY' in status or 'CREATE - COMPILED' in status:
+                self.client.instance_delete()
+            else:
+                print(f'Warning! service instance "{self.client.si_uuid}" remains.')
+
     @unittest.skip("skipping")
     def test_create_and_delete(self):
         # new instance UUID
@@ -68,6 +76,14 @@ class TestCombinedWorkflow(unittest.TestCase):
 class TestPhasedWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.client = WorkflowPhasedApi()
+
+    def tearDown(self) -> None:
+        if self.client.si_uuid is not None:
+            status = self.client.instance_get_status()
+            if 'CANCEL - READY' in status or 'CREATE - COMPILED' in status:
+                self.client.instance_delete()
+            else:
+                print(f'Warning! service instance "{self.client.si_uuid}" remains.')
 
     def test_workflow(self):
         # new instance UUID
@@ -128,6 +144,9 @@ class TestPhasedWorkflow(unittest.TestCase):
         pass
 
     def test_modify(self):
+        # TODO: create and provision instance
+        # TODO: test modify IP
+        # TODO: test modify add / remove connections
         pass
 
 
