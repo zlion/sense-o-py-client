@@ -19,7 +19,7 @@ class TestCombinedWorkflow(unittest.TestCase):
             status = self.client.instance_get_status()
             if 'CANCEL - READY' in status or 'CREATE - COMPILED' in status:
                 self.client.instance_delete()
-            else:
+            elif self.client.si_uuid in status and 'not found' in status:
                 print(f'Warning! service instance "{self.client.si_uuid}" remains.')
 
     @unittest.skip("skipping")
@@ -60,12 +60,12 @@ class TestCombinedWorkflow(unittest.TestCase):
         print(f'provision status={status}')
         assert 'CREATE - READY' in status
 
-        # deprovision in sync mode
+        # cancel in sync mode
         self.client.instance_operate('cancel', sync='true')
         status = self.client.instance_get_status()
-        print(f'deprovision status={status}')
+        print(f'cancel status={status}')
         # TODO: fix me (need to be 'CANCEL - READY')
-        assert 'CANCEL - COMMITTED' in status
+        assert 'CANCEL - READY' in status
 
         # delete instance with intent
         self.client.instance_delete()
@@ -73,6 +73,7 @@ class TestCombinedWorkflow(unittest.TestCase):
         assert self.client.si_uuid in response and 'not found' in response
 
 
+@unittest.skip("skipping")
 class TestPhasedWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.client = WorkflowPhasedApi()
@@ -82,7 +83,7 @@ class TestPhasedWorkflow(unittest.TestCase):
             status = self.client.instance_get_status()
             if 'CANCEL - READY' in status or 'CREATE - COMPILED' in status:
                 self.client.instance_delete()
-            else:
+            elif self.client.si_uuid in status and 'not found' in status:
                 print(f'Warning! service instance "{self.client.si_uuid}" remains.')
 
     def test_workflow(self):
