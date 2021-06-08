@@ -75,7 +75,7 @@ class TestCombinedWorkflow(unittest.TestCase):
         response = self.client.instance_get_status()
         assert self.client.si_uuid in response and 'not found' in response
 
-    def test_intent(self):
+    def test_intent_versioning(self):
         # new instance UUID
         self.client.instance_new()
         assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
@@ -89,7 +89,7 @@ class TestCombinedWorkflow(unittest.TestCase):
         assert self.client.si_uuid in response
         print(f'created with intent: {response}')
 
-        intent_file = open("./requests/request-1s.json")
+        intent_file = open("./requests/request-2.json")
         intent2 = json.load(intent_file)
         intent_file.close()
         response = self.client.instance_create(json.dumps(intent2))
