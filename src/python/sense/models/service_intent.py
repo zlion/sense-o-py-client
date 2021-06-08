@@ -33,9 +33,7 @@ class ServiceIntent(object):
         'profile_id': 'str',
         'queries': 'list[ServiceIntentQueries]',
         'data': 'OneOfServiceIntentData',
-        'alias': 'str',
-        'proceed': 'str',
-        'synchronous': 'str'
+        'alias': 'str'
     }
 
     attribute_map = {
@@ -44,12 +42,10 @@ class ServiceIntent(object):
         'profile_id': 'profileID',
         'queries': 'queries',
         'data': 'data',
-        'alias': 'alias',
-        'proceed': 'proceed',
-        'synchronous': 'synchronous'
+        'alias': 'alias'
     }
 
-    def __init__(self, service=None, options=None, profile_id=None, queries=None, data=None, alias=None, proceed=None, synchronous=None):  # noqa: E501
+    def __init__(self, service=None, options=None, profile_id=None, queries=None, data=None, alias=None):  # noqa: E501
         """ServiceIntent - a model defined in Swagger"""  # noqa: E501
         self._service = None
         self._options = None
@@ -57,8 +53,6 @@ class ServiceIntent(object):
         self._queries = None
         self._data = None
         self._alias = None
-        self._proceed = None
-        self._synchronous = None
         self.discriminator = None
         self.service = service
         if options is not None:
@@ -67,13 +61,9 @@ class ServiceIntent(object):
             self.profile_id = profile_id
         if queries is not None:
             self.queries = queries
-        self.data = data
-        if alias is not None:
-            self.alias = alias
-        if proceed is not None:
-            self.proceed = proceed
-        if synchronous is not None:
-            self.synchronous = synchronous
+        if data is not None:
+            self.data = data
+        self.alias = alias
 
     @property
     def service(self):
@@ -208,54 +198,10 @@ class ServiceIntent(object):
         :param alias: The alias of this ServiceIntent.  # noqa: E501
         :type: str
         """
+        if alias is None:
+            raise ValueError("Invalid value for `alias`, must not be `None`")  # noqa: E501
 
         self._alias = alias
-
-    @property
-    def proceed(self):
-        """Gets the proceed of this ServiceIntent.  # noqa: E501
-
-        Proceed to provisioning.  # noqa: E501
-
-        :return: The proceed of this ServiceIntent.  # noqa: E501
-        :rtype: str
-        """
-        return self._proceed
-
-    @proceed.setter
-    def proceed(self, proceed):
-        """Sets the proceed of this ServiceIntent.
-
-        Proceed to provisioning.  # noqa: E501
-
-        :param proceed: The proceed of this ServiceIntent.  # noqa: E501
-        :type: str
-        """
-
-        self._proceed = proceed
-
-    @property
-    def synchronous(self):
-        """Gets the synchronous of this ServiceIntent.  # noqa: E501
-
-        Create instance in synchronous/blocking mode.  # noqa: E501
-
-        :return: The synchronous of this ServiceIntent.  # noqa: E501
-        :rtype: str
-        """
-        return self._synchronous
-
-    @synchronous.setter
-    def synchronous(self, synchronous):
-        """Sets the synchronous of this ServiceIntent.
-
-        Create instance in synchronous/blocking mode.  # noqa: E501
-
-        :param synchronous: The synchronous of this ServiceIntent.  # noqa: E501
-        :type: str
-        """
-
-        self._synchronous = synchronous
 
     def to_dict(self):
         """Returns the model properties as a dict"""

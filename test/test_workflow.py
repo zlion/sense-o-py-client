@@ -106,7 +106,7 @@ class TestCombinedWorkflow(unittest.TestCase):
         intent_2nd_uuid = intent_list[1]['id']
         print(f'intent_2nd_uuid={intent_2nd_uuid}')
 
-        # provsion with a given intent
+        # provision with a given intent
         self.client.instance_operate("provision", sync='true', intent=intent_1st_uuid)
         status = self.client.instance_get_status()
         print(f'provision status={status}')
@@ -118,11 +118,17 @@ class TestCombinedWorkflow(unittest.TestCase):
         print(f'cancel status={status}')
         assert 'CANCEL - READY' in status
 
-        # repvision with another given intent
+        # reprovision with another given intent
         self.client.instance_operate("reprovision", sync='true', intent=intent_2nd_uuid)
         status = self.client.instance_get_status()
         print(f'provision status={status}')
         assert 'REINSTATE - READY' in status
+
+        # cancel in sync mode
+        self.client.instance_operate('cancel', sync='true')
+        status = self.client.instance_get_status()
+        print(f'cancel status={status}')
+        assert 'CANCEL - READY' in status
 
 
 class TestPhasedWorkflow(unittest.TestCase):
@@ -246,12 +252,6 @@ class TestPhasedWorkflow(unittest.TestCase):
 
         # TODO: support of editable field ...
         # TODO: no permission for profiles by other user
-        pass
-
-    def test_modify(self):
-        # TODO: create and provision instance
-        # TODO: test modify IP
-        # TODO: test modify add / remove connections
         pass
 
 
