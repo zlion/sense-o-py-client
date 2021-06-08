@@ -1,6 +1,6 @@
 {
   "service": "dnc",
-  "alias": "SENSE-API-2.0-Alpha-T1s",
+  "alias": "SENSE-API-2.0-Alpha-T1",
   "data": {
     "type": "Multi-Path P2P VLAN",
     "connections": [
