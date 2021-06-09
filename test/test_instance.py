@@ -10,7 +10,7 @@ from sense.client.instance_api import InstanceApi
 from sense.models.service_intent import ServiceIntent
 
 
-class TestCombinedWorkflow(unittest.TestCase):
+class TestInstanceApi(unittest.TestCase):
     def setUp(self) -> None:
         self.client = InstanceApi()
 

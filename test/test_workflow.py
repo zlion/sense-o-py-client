@@ -230,7 +230,7 @@ class TestPhasedWorkflow(unittest.TestCase):
         response = self.client.instance_get_status()
         assert self.client.si_uuid in response and 'not found' in response
 
-    def test_profile(self):
+    def test_using_profile(self):
         PROFILE_ID = 'a1c6b7db-b83e-4dec-bc18-cbd323c82c84'
         # TODO: place assert params in config files
         profile_list = self.client.profile_list()
