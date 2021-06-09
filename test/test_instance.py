@@ -41,6 +41,7 @@ class TestCombinedWorkflow(unittest.TestCase):
 
         # delete instance with intent
         response = self.client.instance_delete()
+        assert self.client.si_uuid in response and 'not found' in response
 
     def test_modify_add_connection(self):
         # create and provision instance
@@ -67,8 +68,20 @@ class TestCombinedWorkflow(unittest.TestCase):
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()
         response = self.client.instance_modify(json.dumps(intent), sync="true")
+        status = self.client.instance_get_status()
         print(f'modify status={status}')
         assert 'MODIFY - READY' in status
+
+        # cancel in sync mode
+        self.client.instance_operate('cancel', sync='true')
+        status = self.client.instance_get_status()
+        print(f'cancel status={status}')
+        assert 'CANCEL - READY' in status
+
+        # delete instance with intent
+        self.client.instance_delete()
+        response = self.client.instance_get_status()
+        assert self.client.si_uuid in response and 'not found' in response
 
     def test_modify_ip_address(self):
         # TODO: create and provision instance

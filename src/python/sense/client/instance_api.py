@@ -327,11 +327,15 @@ class InstanceApi(object):
             path_params['siUUID'] = params['si_uuid']  # noqa: E501
 
         query_params = []
+        if 'sync' in params:
+            query_params.append(('sync', params['sync']))
+        if 'force' in params:
+            query_params.append(('proceed', params['proceed']))
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
         return self.client.request(
-            'POST', '/instance/' + si_uuid, body_params=body)
+            'POST', '/instance/' + si_uuid, body_params=body, query_params=query_params)
 
     def instance_modify(self, intent, **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
@@ -409,11 +413,13 @@ class InstanceApi(object):
             path_params['siUUID'] = params['si_uuid']  # noqa: E501
 
         query_params = []
+        if 'sync' in params:
+            query_params.append(('sync', params['sync']))
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
         return self.client.request(
-            'POST', f'/instance/{si_uuid}/modify', body_params=body)
+            'POST', f'/instance/{si_uuid}/modify', body_params=body, query_params=query_params)
 
     def instance_get_status(self, **kwargs):  # noqa: E501
         """Get instance status  # noqa: E501
