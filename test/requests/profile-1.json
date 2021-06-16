@@ -1,0 +1,20 @@
+{
+  "name": "TEST Simple",
+  "description": "Simple example with minimal data.",
+  "data": {
+    "data": {
+      "type": "Multi-Path P2P VLAN",
+      "connections": [
+        {
+          "name": "Connection 1",
+          "terminals": [
+            { "uri": "test1", "vlan_tag": "any" },
+            { "uri": "test2", "vlan_tag": "any" }
+          ],
+          "bandwidth": { "qos_class": "bestEffort" }
+        }
+      ]
+    },
+    "service": "dnc"
+  }
+}

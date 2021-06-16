@@ -5,7 +5,10 @@ import json
 import time
 import sys
 
-sys.path.append('../src/python')
+# Append root for proper imports
+sys.path.append('')
+#
+
 from sense.client.workflow_combined_api import WorkflowCombinedApi
 from sense.client.workflow_phased_api import WorkflowPhasedApi
 from sense.models.service_intent import ServiceIntent
@@ -21,15 +24,21 @@ class TestCombinedWorkflow(unittest.TestCase):
             if 'CANCEL - READY' in status or 'CANCEL - COMMITTED' in status or 'CREATE - COMPILED' in status:
                 self.client.instance_delete()
             elif self.client.si_uuid in status and 'not found' in status:
-                print(f'Warning! service instance "{self.client.si_uuid}" no longer exists.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" no longer exists.'
+                )
             else:
-                print(f'Warning! service instance "{self.client.si_uuid}" remains.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" remains.'
+                )
 
     @unittest.skip("skipping")
     def test_create_and_delete(self):
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
         # create instance with intent
         intent_file = open("./requests/request-1.json")
         intent = json.load(intent_file)
@@ -43,7 +52,9 @@ class TestCombinedWorkflow(unittest.TestCase):
     def test_workflow(self):
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
 
         # create instance with intent
         intent_file = open("./requests/request-1.json")
@@ -78,7 +89,9 @@ class TestCombinedWorkflow(unittest.TestCase):
     def test_intent_versioning(self):
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
 
         # create instance with intent
         intent_file = open("./requests/request-1.json")
@@ -107,7 +120,9 @@ class TestCombinedWorkflow(unittest.TestCase):
         print(f'intent_2nd_uuid={intent_2nd_uuid}')
 
         # provision with a given intent
-        self.client.instance_operate("provision", sync='true', intent=intent_1st_uuid)
+        self.client.instance_operate("provision",
+                                     sync='true',
+                                     intent=intent_1st_uuid)
         status = self.client.instance_get_status()
         print(f'provision status={status}')
         assert 'CREATE - READY' in status
@@ -119,7 +134,9 @@ class TestCombinedWorkflow(unittest.TestCase):
         assert 'CANCEL - READY' in status
 
         # reprovision with another given intent
-        self.client.instance_operate("reprovision", sync='true', intent=intent_2nd_uuid)
+        self.client.instance_operate("reprovision",
+                                     sync='true',
+                                     intent=intent_2nd_uuid)
         status = self.client.instance_get_status()
         print(f'provision status={status}')
         assert 'REINSTATE - READY' in status
@@ -141,14 +158,20 @@ class TestPhasedWorkflow(unittest.TestCase):
             if 'CANCEL - READY' in status or 'CANCEL - COMMITTED' in status or 'CREATE - COMPILED' in status:
                 self.client.instance_delete()
             elif self.client.si_uuid in status and 'not found' in status:
-                print(f'Warning! service instance "{self.client.si_uuid}" no longer exists.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" no longer exists.'
+                )
             else:
-                print(f'Warning! service instance "{self.client.si_uuid}" remains.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" remains.'
+                )
 
     def test_workflow(self):
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
 
         # create instance with intent
         intent_file = open("./requests/request-1.json")
@@ -244,8 +267,12 @@ class TestPhasedWorkflow(unittest.TestCase):
         # FIXME: create instance with profile
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
-        intent = ServiceIntent(service='dnc', profile_id=PROFILE_ID, alias='DNC-profile-'+PROFILE_ID)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
+        intent = ServiceIntent(service='dnc',
+                               profile_id=PROFILE_ID,
+                               alias='DNC-profile-' + PROFILE_ID)
         response = self.client.instance_create(json.dumps(intent.to_dict()))
         assert self.client.si_uuid in response
         print(f'created with intent: {response}')

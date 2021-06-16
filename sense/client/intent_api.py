@@ -1,5 +1,4 @@
 # coding: utf-8
-
 """
     SENSE-O Northbound Intent API
 
@@ -21,7 +20,6 @@ class IntentApi(object):
     Do not edit the class manually.
     Ref: https://github.com/swagger-api/swagger-codegen
     """
-
     def __init__(self, req_wrapper=None):
         if req_wrapper is None:
             self.client = RequestWrapper()
@@ -51,12 +49,15 @@ class IntentApi(object):
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.intent_instance_si_uuid_get_with_http_info(si_uuid, **kwargs)  # noqa: E501
+            return self.intent_instance_si_uuid_get_with_http_info(
+                si_uuid, **kwargs)  # noqa: E501
         else:
-            (data) = self.intent_instance_si_uuid_get_with_http_info(si_uuid, **kwargs)  # noqa: E501
+            (data) = self.intent_instance_si_uuid_get_with_http_info(
+                si_uuid, **kwargs)  # noqa: E501
             return data
 
-    def intent_instance_si_uuid_get_with_http_info(self, si_uuid, **kwargs):  # noqa: E501
+    def intent_instance_si_uuid_get_with_http_info(self, si_uuid,
+                                                   **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
 
         Queries all service intents belonging to given instance UUID.  # noqa: E501
@@ -81,20 +82,17 @@ class IntentApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method intent_instance_si_uuid_get" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method intent_instance_si_uuid_get" % key)
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'si_uuid' is set
-        if ('si_uuid' not in params or
-                params['si_uuid'] is None):
+        if ('si_uuid' not in params or params['si_uuid'] is None):
             raise ValueError(
-                "Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`")  # noqa: E501
+                "Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`"
+            )  # noqa: E501
 
-        return self.client.request(
-            'GET', '/intent/instance/' + si_uuid)
+        return self.client.request('GET', '/intent/instance/' + si_uuid)
 
     def intent_describe(self, uuid, **kwargs):  # noqa: E501
         """Retrieve intent by UUID  # noqa: E501
@@ -113,9 +111,11 @@ class IntentApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.intent_uuid_get_with_http_info(uuid, **kwargs)  # noqa: E501
+            return self.intent_uuid_get_with_http_info(uuid,
+                                                       **kwargs)  # noqa: E501
         else:
-            (data) = self.intent_uuid_get_with_http_info(uuid, **kwargs)  # noqa: E501
+            (data) = self.intent_uuid_get_with_http_info(
+                uuid, **kwargs)  # noqa: E501
             return data
 
     def intent_uuid_get_with_http_info(self, uuid, **kwargs):  # noqa: E501
@@ -143,16 +143,15 @@ class IntentApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method intent_uuid_get" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method intent_uuid_get" % key)
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'uuid' is set
-        if ('uuid' not in params or
-                params['uuid'] is None):
-            raise ValueError("Missing the required parameter `uuid` when calling `intent_uuid_get`")  # noqa: E501
+        if ('uuid' not in params or params['uuid'] is None):
+            raise ValueError(
+                "Missing the required parameter `uuid` when calling `intent_uuid_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -163,6 +162,4 @@ class IntentApi(object):
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
-        return self.client.request(
-            'GET', '/intent/{uuid}' + si_uuid)
-
+        return self.client.request('GET', '/intent/{uuid}' + si_uuid)

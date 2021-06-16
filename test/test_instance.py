@@ -5,7 +5,10 @@ import json
 import time
 import sys
 
-sys.path.append('../src/python')
+# Append root for proper imports
+sys.path.append('')
+#
+
 from sense.client.instance_api import InstanceApi
 from sense.models.service_intent import ServiceIntent
 
@@ -20,14 +23,20 @@ class TestInstanceApi(unittest.TestCase):
             if 'CANCEL - READY' in status or 'CANCEL - COMMITTED' in status or 'CREATE - COMPILED' in status:
                 self.client.instance_delete()
             elif self.client.si_uuid in status and 'not found' in status:
-                print(f'Warning! service instance "{self.client.si_uuid}" no longer exists.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" no longer exists.'
+                )
             else:
-                print(f'Warning! service instance "{self.client.si_uuid}" remains.')
+                print(
+                    f'Warning! service instance "{self.client.si_uuid}" remains.'
+                )
 
     def test_logging(self):
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
         # create instance with intent
         intent_file = open("./requests/request-1.json")
         intent = json.load(intent_file)
@@ -47,7 +56,9 @@ class TestInstanceApi(unittest.TestCase):
         # create and provision instance
         # new instance UUID
         self.client.instance_new()
-        assert re.match('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', self.client.si_uuid)
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
         # create instance with intent
         intent_file = open("./requests/request-1.json")
         intent = json.load(intent_file)

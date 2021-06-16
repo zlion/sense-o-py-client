@@ -1,6 +1,7 @@
 import ast
 import json
 
+
 def evalInput(inText):
     if not inText:
         return {}
@@ -13,3 +14,10 @@ def evalInput(inText):
     except SyntaxError as ex:
         print("SyntaxError: Failed to literal eval dict. Err:%s " % ex)
     return inText
+
+
+def loadJSON(path):
+    file = open(path)
+    ret = json.load(file)
+    file.close()
+    return ret

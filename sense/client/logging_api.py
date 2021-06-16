@@ -1,5 +1,4 @@
 # coding: utf-8
-
 """
     SENSE-O Northbound Intent API
 
@@ -21,7 +20,6 @@ class LoggingApi(object):
     Do not edit the class manually.
     Ref: https://github.com/swagger-api/swagger-codegen
     """
-
     def __init__(self, req_wrapper=None):
         if req_wrapper is None:
             self.client = RequestWrapper()
@@ -49,12 +47,15 @@ class LoggingApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.logging_archive_days_put_with_http_info(days, **kwargs)  # noqa: E501
+            return self.logging_archive_days_put_with_http_info(
+                days, **kwargs)  # noqa: E501
         else:
-            (data) = self.logging_archive_days_put_with_http_info(days, **kwargs)  # noqa: E501
+            (data) = self.logging_archive_days_put_with_http_info(
+                days, **kwargs)  # noqa: E501
             return data
 
-    def logging_archive_days_put_with_http_info(self, days, **kwargs):  # noqa: E501
+    def logging_archive_days_put_with_http_info(self, days,
+                                                **kwargs):  # noqa: E501
         """Archive logs  # noqa: E501
 
         Archives all logs older than specified number of days.  # noqa: E501
@@ -79,23 +80,21 @@ class LoggingApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method logging_archive_days_put" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method logging_archive_days_put" % key)
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'days' is set
-        if ('days' not in params or
-                params['days'] is None):
-            raise ValueError("Missing the required parameter `days` when calling `logging_archive_days_put`")  # noqa: E501
+        if ('days' not in params or params['days'] is None):
+            raise ValueError(
+                "Missing the required parameter `days` when calling `logging_archive_days_put`"
+            )  # noqa: E501
 
         path_params = {}
         if 'days' in params:
             path_params['days'] = params['days']  # noqa: E501
 
-        return self.client.request(
-            'PUT', f'/logging/archive/{days}')
+        return self.client.request('PUT', f'/logging/archive/{days}')
 
     def logging_get_config(self, **kwargs):  # noqa: E501
         """Get logging configuration  # noqa: E501
@@ -113,9 +112,11 @@ class LoggingApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.logging_config_get_with_http_info(**kwargs)  # noqa: E501
+            return self.logging_config_get_with_http_info(**
+                                                          kwargs)  # noqa: E501
         else:
-            (data) = self.logging_config_get_with_http_info(**kwargs)  # noqa: E501
+            (data
+             ) = self.logging_config_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
     def logging_config_get_with_http_info(self, **kwargs):  # noqa: E501
@@ -142,15 +143,12 @@ class LoggingApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method logging_config_get" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method logging_config_get" % key)
             params[key] = val
         del params['kwargs']
 
-        return self.client.request(
-            'PUT', f'/logging/config')
+        return self.client.request('PUT', f'/logging/config')
 
     def logging_set_logger_level(self, logger, level, **kwargs):  # noqa: E501
         """Set logger level  # noqa: E501
@@ -170,12 +168,15 @@ class LoggingApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.logging_config_logger_level_put_with_http_info(logger, level, **kwargs)  # noqa: E501
+            return self.logging_config_logger_level_put_with_http_info(
+                logger, level, **kwargs)  # noqa: E501
         else:
-            (data) = self.logging_config_logger_level_put_with_http_info(logger, level, **kwargs)  # noqa: E501
+            (data) = self.logging_config_logger_level_put_with_http_info(
+                logger, level, **kwargs)  # noqa: E501
             return data
 
-    def logging_config_logger_level_put_with_http_info(self, logger, level, **kwargs):  # noqa: E501
+    def logging_config_logger_level_put_with_http_info(self, logger, level,
+                                                       **kwargs):  # noqa: E501
         """Set logger level  # noqa: E501
 
         Updates the logging level of the specified layer.  # noqa: E501
@@ -201,20 +202,21 @@ class LoggingApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method logging_config_logger_level_put" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method logging_config_logger_level_put" %
+                                key)
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'logger' is set
-        if ('logger' not in params or
-                params['logger'] is None):
-            raise ValueError("Missing the required parameter `logger` when calling `logging_config_logger_level_put`")  # noqa: E501
+        if ('logger' not in params or params['logger'] is None):
+            raise ValueError(
+                "Missing the required parameter `logger` when calling `logging_config_logger_level_put`"
+            )  # noqa: E501
         # verify the required parameter 'level' is set
-        if ('level' not in params or
-                params['level'] is None):
-            raise ValueError("Missing the required parameter `level` when calling `logging_config_logger_level_put`")  # noqa: E501
+        if ('level' not in params or params['level'] is None):
+            raise ValueError(
+                "Missing the required parameter `level` when calling `logging_config_logger_level_put`"
+            )  # noqa: E501
 
         path_params = {}
         if 'logger' in params:
@@ -222,8 +224,7 @@ class LoggingApi(object):
         if 'level' in params:
             path_params['level'] = params['level']  # noqa: E501
 
-        return self.client.request(
-            'PUT', f'/logging/config/{logger}/{level}')
+        return self.client.request('PUT', f'/logging/config/{logger}/{level}')
 
     def logging_set_filter(self, **kwargs):  # noqa: E501
         """Set logger filter  # noqa: E501
@@ -242,9 +243,11 @@ class LoggingApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.logging_filter_put_with_http_info(**kwargs)  # noqa: E501
+            return self.logging_filter_put_with_http_info(**
+                                                          kwargs)  # noqa: E501
         else:
-            (data) = self.logging_filter_put_with_http_info(**kwargs)  # noqa: E501
+            (data
+             ) = self.logging_filter_put_with_http_info(**kwargs)  # noqa: E501
             return data
 
     def logging_filter_put_with_http_info(self, **kwargs):  # noqa: E501
@@ -272,10 +275,8 @@ class LoggingApi(object):
         params = locals()
         for key, val in six.iteritems(params['kwargs']):
             if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method logging_filter_put" % key
-                )
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method logging_filter_put" % key)
             params[key] = val
         del params['kwargs']
 
@@ -283,8 +284,9 @@ class LoggingApi(object):
         if 'body' in params:
             body_params = params['body']
 
-        return self.client.request(
-            'PUT', f'/logging/filter', body_params=body_params)
+        return self.client.request('PUT',
+                                   f'/logging/filter',
+                                   body_params=body_params)
 
     def instance_get_logging(self, **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
@@ -305,12 +307,15 @@ class LoggingApi(object):
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.logging_logs_si_uuid_get_with_http_info(si_uuid, **kwargs)  # noqa: E501
+            return self.logging_logs_si_uuid_get_with_http_info(
+                si_uuid, **kwargs)  # noqa: E501
         else:
-            (data) = self.logging_logs_si_uuid_get_with_http_info(si_uuid, **kwargs)  # noqa: E501
+            (data) = self.logging_logs_si_uuid_get_with_http_info(
+                si_uuid, **kwargs)  # noqa: E501
             return data
 
-    def logging_logs_si_uuid_get_with_http_info(self, si_uuid, **kwargs):  # noqa: E501
+    def logging_logs_si_uuid_get_with_http_info(self, si_uuid,
+                                                **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
 
         Queries all service intents belonging to given instance UUID.  # noqa: E501
@@ -337,15 +342,13 @@ class LoggingApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method logging_logs_si_uuid_get_with_http_info" % key
-                )
+                    " to method logging_logs_si_uuid_get_with_http_info" % key)
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'si_uuid' is set
-        if ('si_uuid' not in params or
-                params['si_uuid'] is None):
+        if ('si_uuid' not in params or params['si_uuid'] is None):
             raise ValueError(
-                "Missing the required parameter `si_uuid` when calling `logging_logs_si_uuid_get_with_http_info`")  # noqa: E501
+                "Missing the required parameter `si_uuid` when calling `logging_logs_si_uuid_get_with_http_info`"
+            )  # noqa: E501
 
-        return self.client.request(
-            'GET', '/logging/logs/' + si_uuid)
+        return self.client.request('GET', '/logging/logs/' + si_uuid)
