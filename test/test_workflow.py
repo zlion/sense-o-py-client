@@ -1,3 +1,5 @@
+from sense.client.profile_api import ProfileApi
+from sense.common import loadJSON
 import unittest
 import pytest
 import re
@@ -40,7 +42,7 @@ class TestCombinedWorkflow(unittest.TestCase):
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent_file.close()
         response = self.client.instance_create(json.dumps(intent))
@@ -48,6 +50,24 @@ class TestCombinedWorkflow(unittest.TestCase):
         print(f'created with intent: {response}')
         # delete instance with intent
         response = self.client.instance_delete()
+
+    def test_profile_create(self):
+        # Create profile for testing
+        api = ProfileApi()
+        profile = loadJSON("test/requests/profile-1.json")
+        profUUID = api.profile_create(json.dumps(profile))
+        #
+        self.client.instance_new()
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
+        intent = loadJSON("test/requests/request-profile.json")
+        intent.update({"profileID": profUUID})
+        response = self.client.instance_create(json.dumps(intent))
+        api.profile_delete(profUUID)
+        assert self.client.si_uuid in response
+        self.client.instance_delete()
+        self.client.si_uuid = None
 
     def test_workflow(self):
         # new instance UUID
@@ -57,7 +77,7 @@ class TestCombinedWorkflow(unittest.TestCase):
             self.client.si_uuid)
 
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()
@@ -94,7 +114,7 @@ class TestCombinedWorkflow(unittest.TestCase):
             self.client.si_uuid)
 
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()
@@ -102,7 +122,7 @@ class TestCombinedWorkflow(unittest.TestCase):
         assert self.client.si_uuid in response
         print(f'created with intent: {response}')
 
-        intent_file = open("./requests/request-2.json")
+        intent_file = open("test/requests/request-2.json")
         intent2 = json.load(intent_file)
         intent_file.close()
         response = self.client.instance_create(json.dumps(intent2))
@@ -174,7 +194,7 @@ class TestPhasedWorkflow(unittest.TestCase):
             self.client.si_uuid)
 
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()

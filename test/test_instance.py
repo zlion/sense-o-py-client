@@ -38,7 +38,7 @@ class TestInstanceApi(unittest.TestCase):
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent_file.close()
         response = self.client.instance_create(json.dumps(intent))
@@ -60,7 +60,7 @@ class TestInstanceApi(unittest.TestCase):
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
         # create instance with intent
-        intent_file = open("./requests/request-1.json")
+        intent_file = open("test/requests/request-1.json")
         intent = json.load(intent_file)
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()
@@ -74,7 +74,7 @@ class TestInstanceApi(unittest.TestCase):
         assert 'CREATE - READY' in status
         # modify testing
         # add connection
-        intent_file = open("./requests/request-1-2.json")
+        intent_file = open("test/requests/request-1-2.json")
         intent = json.load(intent_file)
         intent['alias'] = f'{intent["alias"]}-{self.client.si_uuid}'
         intent_file.close()
