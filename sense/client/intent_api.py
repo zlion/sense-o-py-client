@@ -162,4 +162,4 @@ class IntentApi(object):
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
 
-        return self.client.request('GET', '/intent/{uuid}' + si_uuid)
+        return self.client.request('GET', '/intent/' + uuid)
