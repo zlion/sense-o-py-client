@@ -148,7 +148,7 @@ class LoggingApi(object):
             params[key] = val
         del params['kwargs']
 
-        return self.client.request('PUT', f'/logging/config')
+        return self.client.request('GET', f'/logging/config')
 
     def logging_set_logger_level(self, logger, level, **kwargs):  # noqa: E501
         """Set logger level  # noqa: E501
