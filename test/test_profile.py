@@ -32,12 +32,13 @@ class TestProfileApi(unittest.TestCase):
         cls.uuids = []
         cls.client = ProfileApi()
         cls.preOpCreate()
+        print(f"\nProfile Test :: using dummy instance: {cls.uuids[0]}")
 
     @classmethod
     def tearDownClass(cls):
+        print(f'Profile Test :: cleaning up {len(cls.uuids)} dummy instances.')
         for uuid in cls.uuids:
             cls.client.profile_delete(uuid)
-            # print(f'CLEANUP: {uuid}')
 
     def setUp(self) -> None:
         self.client = ProfileApi()
