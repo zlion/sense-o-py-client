@@ -255,33 +255,30 @@ class TestPhasedWorkflow(unittest.TestCase):
         response = self.client.instance_get_status()
         assert self.client.si_uuid in response and 'not found' in response
 
-    def OLD_using_profile(self):
-        PROFILE_ID = '2fd19216-67e3-4eac-bc70-ac7d98e05cb1'
-        # TODO: place assert params in config files
-        profile_list = self.client.profile_list()
-        print(profile_list)
-        assert PROFILE_ID in str(profile_list)
+    # def OLD_using_profile(self):
+    #     PROFILE_ID = '2fd19216-67e3-4eac-bc70-ac7d98e05cb1'
+    #     # TODO: place assert params in config files
+    #     profile_list = self.client.profile_list()
+    #     print(profile_list)
+    #     assert PROFILE_ID in str(profile_list)
 
-        profile_data = self.client.profile_describe(PROFILE_ID)
-        print(profile_data)
-        # assert 'MAC-DNC-1' in str(profile_data)
+    #     profile_data = self.client.profile_describe(PROFILE_ID)
+    #     print(profile_data)
+    #     # assert 'MAC-DNC-1' in str(profile_data)
 
-        # FIXME: create instance with profile
-        # new instance UUID
-        self.client.instance_new()
-        assert re.match(
-            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-            self.client.si_uuid)
-        intent = ServiceIntent(service='dnc',
-                               profileID=PROFILE_ID,
-                               alias='DNC-profile-' + PROFILE_ID)
-        response = self.client.instance_create(json.dumps(intent.to_dict()))
-        assert self.client.si_uuid in response
-        print(f'created with intent: {response}')
+    #     # new instance UUID
+    #     self.client.instance_new()
+    #     assert re.match(
+    #         '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+    #         self.client.si_uuid)
+    #     intent = ServiceIntent(service='dnc',
+    #                            profileID=PROFILE_ID,
+    #                            alias='DNC-profile-' + PROFILE_ID)
+    #     response = self.client.instance_create(json.dumps(intent.to_dict()))
+    #     assert self.client.si_uuid in response
+    #     print(f'created with intent: {response}')
 
-        # TODO: support of editable field ...
-        # TODO: no permission for profiles by other user
-        pass
+    #     pass
 
     def test_using_profile(self):
         # Create profile for testing
@@ -300,6 +297,9 @@ class TestPhasedWorkflow(unittest.TestCase):
         assert self.client.si_uuid in response
         self.client.instance_delete()
         self.client.si_uuid = None
+
+        # TODO: support of editable field ...
+        # TODO: no permission for profiles by other user
 
 
 if __name__ == '__main__':
