@@ -24,7 +24,7 @@ class TestIntentApi(unittest.TestCase):
 
         self.instance_client = InstanceApi()
         self.instance_client.instance_new()
-        input = loadJSON("test/requests/request-1.json")
+        input = loadJSON("requests/request-1.json")
         self.instance_client.instance_create(json.dumps(input))
 
         self.client.si_uuid = self.instance_client.si_uuid

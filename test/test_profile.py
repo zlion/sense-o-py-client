@@ -20,7 +20,7 @@ class TestProfileApi(unittest.TestCase):
     @classmethod
     def preOpCreate(cls):
         paths = [
-            "test/requests/profile-1.json", "test/requests/profile-2.json"
+            "requests/profile-1.json", "requests/profile-2.json"
         ]
         for path in paths:
             profile = loadJSON(path)
@@ -48,7 +48,7 @@ class TestProfileApi(unittest.TestCase):
 
     def test_create_profile(self):
         # - TESTING: POST /
-        profile = loadJSON("test/requests/profile-1.json")
+        profile = loadJSON("requests/profile-1.json")
         res = self.client.profile_create(json.dumps(profile))
         # print(f'ADD: {res}')
         assert re.match(
@@ -98,7 +98,7 @@ class TestProfileApi(unittest.TestCase):
 
         #
         # - TESTING: PUT /{uuid}
-        input = loadJSON("test/requests/profile-2.json")
+        input = loadJSON("requests/profile-2.json")
         self.client.profile_update(json.dumps(input), uuid)
         prof = json.loads(self.client.profile_describe(uuid))
         assert prof.get('name') == input.get('name')
@@ -120,7 +120,7 @@ class TestProfileApi(unittest.TestCase):
 
         #
         # - TESTING: POST /{uuid}/licenses
-        license = loadJSON("test/requests/profile-license-1.json")
+        license = loadJSON("requests/profile-license-1.json")
         self.client.profile_add_licenses(json.dumps(license), uuid)
         prof = json.loads(self.client.profile_describe(uuid))
         assert len(prof.get('licenses')) == 1
