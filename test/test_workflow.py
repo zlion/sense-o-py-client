@@ -51,24 +51,6 @@ class TestCombinedWorkflow(unittest.TestCase):
         # delete instance with intent
         response = self.client.instance_delete()
 
-    def test_profile_create(self):
-        # Create profile for testing
-        api = ProfileApi()
-        profile = loadJSON("test/requests/profile-1.json")
-        profUUID = api.profile_create(json.dumps(profile))
-        #
-        self.client.instance_new()
-        assert re.match(
-            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-            self.client.si_uuid)
-        intent = loadJSON("test/requests/request-profile.json")
-        intent.update({"profileID": profUUID})
-        response = self.client.instance_create(json.dumps(intent))
-        api.profile_delete(profUUID)
-        assert self.client.si_uuid in response
-        self.client.instance_delete()
-        self.client.si_uuid = None
-
     def test_workflow(self):
         # new instance UUID
         self.client.instance_new()
@@ -273,8 +255,8 @@ class TestPhasedWorkflow(unittest.TestCase):
         response = self.client.instance_get_status()
         assert self.client.si_uuid in response and 'not found' in response
 
-    def test_using_profile(self):
-        PROFILE_ID = 'a1c6b7db-b83e-4dec-bc18-cbd323c82c84'
+    def OLD_using_profile(self):
+        PROFILE_ID = '2fd19216-67e3-4eac-bc70-ac7d98e05cb1'
         # TODO: place assert params in config files
         profile_list = self.client.profile_list()
         print(profile_list)
@@ -282,7 +264,7 @@ class TestPhasedWorkflow(unittest.TestCase):
 
         profile_data = self.client.profile_describe(PROFILE_ID)
         print(profile_data)
-        assert 'MAC-DNC-1' in str(profile_data)
+        # assert 'MAC-DNC-1' in str(profile_data)
 
         # FIXME: create instance with profile
         # new instance UUID
@@ -291,7 +273,7 @@ class TestPhasedWorkflow(unittest.TestCase):
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
         intent = ServiceIntent(service='dnc',
-                               profile_id=PROFILE_ID,
+                               profileID=PROFILE_ID,
                                alias='DNC-profile-' + PROFILE_ID)
         response = self.client.instance_create(json.dumps(intent.to_dict()))
         assert self.client.si_uuid in response
@@ -300,6 +282,24 @@ class TestPhasedWorkflow(unittest.TestCase):
         # TODO: support of editable field ...
         # TODO: no permission for profiles by other user
         pass
+
+    def test_using_profile(self):
+        # Create profile for testing
+        api = ProfileApi()
+        profile = loadJSON("test/requests/profile-1.json")
+        profUUID = api.profile_create(json.dumps(profile))
+        #
+        self.client.instance_new()
+        assert re.match(
+            '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            self.client.si_uuid)
+        intent = loadJSON("test/requests/request-profile.json")
+        intent.update({"profileID": profUUID})
+        response = self.client.instance_create(json.dumps(intent))
+        api.profile_delete(profUUID)
+        assert self.client.si_uuid in response
+        self.client.instance_delete()
+        self.client.si_uuid = None
 
 
 if __name__ == '__main__':

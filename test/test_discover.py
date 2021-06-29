@@ -60,8 +60,8 @@ class TestDiscoverApi(unittest.TestCase):
 
     @unittest.expectedFailure
     def test_lookup(self):
+        # TODO: find better/consistent way to get correct query name. Expected to fail otherwise.
         # - TESTING: GET /discover/lookup/{name}
         res = json.loads(
             self.client.discover_lookup_name_get(TestDiscoverApi.uri))
-        # TODO: find better/consistent way to get correct query name
         assert "results" in res
