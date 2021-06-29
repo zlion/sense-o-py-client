@@ -283,14 +283,14 @@ class TestPhasedWorkflow(unittest.TestCase):
     def test_using_profile(self):
         # Create profile for testing
         api = ProfileApi()
-        profile = loadJSON("test/requests/profile-1.json")
+        profile = loadJSON("requests/profile-1.json")
         profUUID = api.profile_create(json.dumps(profile))
         #
         self.client.instance_new()
         assert re.match(
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
-        intent = loadJSON("test/requests/request-profile.json")
+        intent = loadJSON("requests/request-profile.json")
         intent.update({"profileID": profUUID})
         response = self.client.instance_create(json.dumps(intent))
         api.profile_delete(profUUID)

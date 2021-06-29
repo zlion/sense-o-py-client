@@ -25,7 +25,7 @@ class ProfileApi(object):
             self.client = RequestWrapper()
         else:
             self.client = req_wrapper
-        if self.client.config['SI_UUID']:
+        if 'SI_UUID' in self.client.config:
             self.si_uuid = self.client.config['SI_UUID']
         else:
             self.si_uuid = None
