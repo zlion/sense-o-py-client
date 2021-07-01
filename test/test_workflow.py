@@ -286,7 +286,7 @@ class TestPhasedWorkflow(unittest.TestCase):
     def test_using_profile(self):
         # Create profile for testing
         api = ProfileApi()
-        profile = loadJSON("test/requests/profile-1.json")
+        profile = loadJSON("requests/profile-1.json")
         self.profile_uuid = api.profile_create(json.dumps(profile))
         #
         # Test creation with only profile ID
@@ -294,7 +294,7 @@ class TestPhasedWorkflow(unittest.TestCase):
         assert re.match(
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
-        intent = loadJSON("test/requests/request-profile.json")
+        intent = loadJSON("requests/request-profile.json")
         intent["profileID"] = self.profile_uuid
         response = self.client.instance_create(json.dumps(intent))
         # print(response)
@@ -304,20 +304,28 @@ class TestPhasedWorkflow(unittest.TestCase):
 
         #
         # Test editable field overwrite
-        testString = "testfoo"
-        path = profile["edit"][0]["path"]
+        uri_1 = "urn:ogf:network:maxgigapop.net:2013:180-134.research.maxgigapop.net"
+        uri_2 = "urn:ogf:network:maxgigapop.net:2013:s0:1_1:wash-cr5"
+        path_1 = profile["edit"][0]["path"]
+        path_2 = profile["edit"][1]["path"]
         query = dict([("ask", "edit"),
-                      ("options", [dict([(path, testString)])])])
+                      ("options", [dict([(path_1, uri_1), (path_2, uri_2)])])])
         intent["queries"] = [query]
         print(intent)
 
         self.client.instance_new()
         response = self.client.instance_create(json.dumps(intent))
+
+        status = self.client.instance_get_status()
+        print(f'create status={status}')
+        assert 'CREATE - COMPILED' in status
+
         intentAPI = IntentApi()
         intentAPI.si_uuid = self.client.si_uuid
         intents = intentAPI.instance_get_intents()
         assert self.client.si_uuid in response
-        assert testString in intents
+        assert uri_1 in intents
+        assert uri_2 in intents
         self.client.instance_delete()
         self.client.si_uuid = None
 

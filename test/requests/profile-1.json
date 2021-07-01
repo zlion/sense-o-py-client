@@ -20,8 +20,13 @@
   "edit": [
     {
       "path": "data.connections%5B0%5D.terminals%5B0%5D.uri",
-      "valid": "test.*",
-      "description": "TEST"
+      "valid": "urn.*",
+      "description": "URI-dtn"
+    },
+    {
+      "path": "data.connections%5B0%5D.terminals%5B1%5D.uri",
+      "valid": "urn.*",
+      "description": "URI-wan"
     }
   ]
 }
