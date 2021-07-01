@@ -19,12 +19,12 @@
   },
   "edit": [
     {
-      "path": "data.connections%5B0%5D.terminals%5B0%5D.uri",
+      "path": "data.connections[0].terminals[0].uri",
       "valid": "urn.*",
       "description": "URI-dtn"
     },
     {
-      "path": "data.connections%5B0%5D.terminals%5B1%5D.uri",
+      "path": "data.connections[0].terminals[1].uri",
       "valid": "urn.*",
       "description": "URI-wan"
     }
