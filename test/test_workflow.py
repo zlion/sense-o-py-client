@@ -1,3 +1,4 @@
+from sense.client.intent_api import IntentApi
 from sense.client.profile_api import ProfileApi
 from sense.common import loadJSON
 import unittest
@@ -21,6 +22,8 @@ class TestCombinedWorkflow(unittest.TestCase):
         self.client = WorkflowCombinedApi()
 
     def tearDown(self) -> None:
+        if self.profile_uuid is not None:
+            ProfileApi().profile_delete(self.profile_uuid)
         if self.client.si_uuid is not None:
             status = self.client.instance_get_status()
             if 'CANCEL - READY' in status or 'CANCEL - COMMITTED' in status or 'CREATE - COMPILED' in status:
@@ -283,23 +286,45 @@ class TestPhasedWorkflow(unittest.TestCase):
     def test_using_profile(self):
         # Create profile for testing
         api = ProfileApi()
-        profile = loadJSON("requests/profile-1.json")
-        profUUID = api.profile_create(json.dumps(profile))
+        profile = loadJSON("test/requests/profile-1.json")
+        self.profile_uuid = api.profile_create(json.dumps(profile))
         #
+        # Test creation with only profile ID
         self.client.instance_new()
         assert re.match(
             '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             self.client.si_uuid)
-        intent = loadJSON("requests/request-profile.json")
-        intent.update({"profileID": profUUID})
+        intent = loadJSON("test/requests/request-profile.json")
+        intent["profileID"] = self.profile_uuid
         response = self.client.instance_create(json.dumps(intent))
-        api.profile_delete(profUUID)
+        # print(response)
         assert self.client.si_uuid in response
         self.client.instance_delete()
         self.client.si_uuid = None
 
-        # TODO: support of editable field ...
+        #
+        # Test editable field overwrite
+        testString = "testfoo"
+        path = profile["edit"][0]["path"]
+        query = dict([("ask", "edit"),
+                      ("options", [dict([(path, testString)])])])
+        intent["queries"] = [query]
+
+        self.client.instance_new()
+        response = self.client.instance_create(json.dumps(intent))
+        intentAPI = IntentApi()
+        intentAPI.si_uuid = self.client.si_uuid
+        intents = intentAPI.instance_get_intents()
+        assert self.client.si_uuid in response
+        assert testString in intents
+        self.client.instance_delete()
+        self.client.si_uuid = None
+
         # TODO: no permission for profiles by other user
+
+        # Clean-up single use profile
+        api.profile_delete(self.profile_uuid)
+        self.profile_uuid = None
 
 
 if __name__ == '__main__':
