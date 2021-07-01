@@ -309,6 +309,7 @@ class TestPhasedWorkflow(unittest.TestCase):
         query = dict([("ask", "edit"),
                       ("options", [dict([(path, testString)])])])
         intent["queries"] = [query]
+        print(intent)
 
         self.client.instance_new()
         response = self.client.instance_create(json.dumps(intent))
