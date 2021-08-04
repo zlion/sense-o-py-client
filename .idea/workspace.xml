@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ead381c2-c847-41af-888e-f1fb148a0bfd" name="Default Changelist" comment="Adding intent, profile and logging api classes">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sense-o-py-client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/apiclient.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/discover_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/instance_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/intent_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/logging_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/profile_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/requestwrapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/workflow_combined_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/workflow_phased_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/common.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/bandwidth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/capability_description.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_bandwidth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_path_tprofile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_schedule.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_suggest_ip_range.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_terminals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/delta.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/discover_description.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/discover_description_end_points.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/dnc_schema.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/dnc_schema_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/domain_description.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/domain_description_edge_points.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/full_profile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/inline_response200.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/intent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/intent_expanded.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/log.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/log_level.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/logging_configuration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/logging_configuration_loggers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/one_of_service_intent_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/operation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/path.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_edit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_license.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_manifest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_description.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent_queries.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/slim_profile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/terminal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/verification_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_discover.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_instance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_intent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_logging.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_profile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/lib/test/test_workflow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/sense_o_api-1.0-py3.9.egg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/PKG-INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/SOURCES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/dependency_links.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/requires.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sense/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sense/__init__.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Unit Test" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1szx0wrthTuSM8xeR2PeEfmTVyG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/test/requests" />
+      <recent name="$PROJECT_DIR$/src/python/sense/client" />
+      <recent name="$PROJECT_DIR$/src/python/sense/requests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Unittests for test_workflow.TestPhasedWorkflow.test_using_profile">
+    <configuration name="Unittests for test_discover.TestDiscoverApi" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="sense-o-py-client" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_discover.TestDiscoverApi&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_intent.TestIntentApi" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="sense-o-py-client" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_intent.TestIntentApi&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_logging.TestLoggingApi" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="sense-o-py-client" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_logging.TestLoggingApi&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_profile.TestProfileApi" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="sense-o-py-client" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_profile.TestProfileApi&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_workflow.TestPhasedWorkflow.test_using_profile" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="sense-o-py-client" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_workflow.TestPhasedWorkflow.test_using_profile&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests for test_workflow.TestPhasedWorkflow.test_using_profile" />
+        <item itemvalue="Python tests.Unittests for test_intent.TestIntentApi" />
+        <item itemvalue="Python tests.Unittests for test_logging.TestLoggingApi" />
+        <item itemvalue="Python tests.Unittests for test_profile.TestProfileApi" />
+        <item itemvalue="Python tests.Unittests for test_discover.TestDiscoverApi" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ead381c2-c847-41af-888e-f1fb148a0bfd" name="Default Changelist" comment="" />
+      <created>1621889000417</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621889000417</updated>
+    </task>
+    <task id="LOCAL-00001" summary="adding all skeleton files from swagger - to be changed later">
+      <created>1621952229250</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1621952229251</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Code struture changes; support query_params for apicient">
+      <created>1622146070346</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622146070346</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update test cases">
+      <created>1622213078172</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622213078172</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added phased workflw and updated test cases">
+      <created>1622559549928</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622559549928</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Adding innstance_api and test cases.">
+      <created>1623184526844</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623184526844</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Adding intent, profile and logging api classes">
+      <created>1623269254682</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1623269254682</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding all skeleton files from swagger - to be changed later" />
+    <MESSAGE value="Code struture changes; support query_params for apicient" />
+    <MESSAGE value="Update test cases" />
+    <MESSAGE value="Added phased workflw and updated test cases" />
+    <MESSAGE value="Adding innstance_api and test cases." />
+    <MESSAGE value="Adding intent, profile and logging api classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding intent, profile and logging api classes" />
+  </component>
+</project>
