@@ -1,78 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ead381c2-c847-41af-888e-f1fb148a0bfd" name="Default Changelist" comment="Adding intent, profile and logging api classes">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sense-o-py-client.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/apiclient.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/discover_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/instance_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/intent_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/logging_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/profile_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/requestwrapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/workflow_combined_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/client/workflow_phased_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/common.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/bandwidth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/capability_description.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_bandwidth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_path_tprofile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_schedule.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_suggest_ip_range.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/connection_terminals.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/delta.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/discover_description.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/discover_description_end_points.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/dnc_schema.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/dnc_schema_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/domain_description.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/domain_description_edge_points.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/full_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/inline_response200.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/intent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/intent_expanded.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/log.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/log_level.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/logging_configuration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/logging_configuration_loggers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/one_of_service_intent_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/operation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/path.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_edit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_license.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/profile_manifest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_description.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent_queries.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/service_intent_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/slim_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/terminal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/sense/models/verification_result.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_discover.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_instance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_intent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_logging.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/lib/test/test_workflow.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/sense_o_api-1.0-py3.9.egg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/PKG-INFO" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/SOURCES.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/dependency_links.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/requires.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sense_o_api.egg-info/top_level.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sense/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sense/__init__.py" afterDir="false" />
+    <list default="true" id="ead381c2-c847-41af-888e-f1fb148a0bfd" name="Default Changelist" comment="add installer components">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623269254682</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add installer components">
+      <created>1628088931511</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1628088931511</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,6 +209,7 @@
     <MESSAGE value="Added phased workflw and updated test cases" />
     <MESSAGE value="Adding innstance_api and test cases." />
     <MESSAGE value="Adding intent, profile and logging api classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding intent, profile and logging api classes" />
+    <MESSAGE value="add installer components" />
+    <option name="LAST_COMMIT_MESSAGE" value="add installer components" />
   </component>
 </project>
