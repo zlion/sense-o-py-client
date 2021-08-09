@@ -348,8 +348,7 @@ class WorkflowCombinedApi(object):
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_status_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_status_get_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.instance_si_uuid_status_get_with_http_info(
                 **kwargs)  # noqa: E501
@@ -409,8 +408,7 @@ class WorkflowCombinedApi(object):
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.intent_instance_si_uuid_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
             return data
@@ -422,7 +420,7 @@ class WorkflowCombinedApi(object):
         Queries all service intents belonging to given instance UUID.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.intent_instance_si_uuid_get_with_http_info(si_uuid, async_req=True)
+        >>> thread = api.intent_instance_si_uuid_get_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
