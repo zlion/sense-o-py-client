@@ -106,10 +106,9 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         if action not in self._allowed_actions:
@@ -117,14 +116,12 @@ class WorkflowPhasedApi(object):
                 f'operate action must of one of {self._allowed_actions}')
 
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_action_put_with_http_info(
-                si_uuid, action, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_action_put_with_http_info(action, **kwargs)  # noqa: E501
         else:
-            (data) = self.instance_si_uuid_action_put_with_http_info(
-                si_uuid, action, **kwargs)  # noqa: E501
+            (data) = self.instance_si_uuid_action_put_with_http_info(action, **kwargs)  # noqa: E501
             return data
 
-    def instance_si_uuid_action_put_with_http_info(self, si_uuid, action,
+    def instance_si_uuid_action_put_with_http_info(self, action,
                                                    **kwargs):  # noqa: E501
         """Operate on a service instance  # noqa: E501
 
@@ -178,7 +175,7 @@ class WorkflowPhasedApi(object):
             query_params.append(('intent', params['intent']))
 
         return self.client.request('PUT',
-                                   '/instance/' + si_uuid + '/' + action,
+                                   '/instance/' + kwargs['si_uuid'] + '/' + action,
                                    query_params=query_params)
 
     def instance_delete(self, **kwargs):  # noqa: E501
@@ -196,22 +193,19 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_delete_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_delete_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.instance_si_uuid_delete_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            (data) = self.instance_si_uuid_delete_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def instance_si_uuid_delete_with_http_info(self, si_uuid,
+    def instance_si_uuid_delete_with_http_info(self,
                                                **kwargs):  # noqa: E501
         """Delete a service instance  # noqa: E501
 
@@ -247,7 +241,7 @@ class WorkflowPhasedApi(object):
                 "Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`"
             )  # noqa: E501
 
-        return self.client.request('DELETE', '/instance/' + si_uuid)
+        return self.client.request('DELETE', '/instance/' + kwargs['si_uuid'])
 
     def instance_create(self, intent, **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
@@ -265,22 +259,21 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
             return self.instance_si_uuid_post_with_http_info(
-                intent, si_uuid, **kwargs)  # noqa: E501
+                intent, **kwargs)  # noqa: E501
         else:
             (data) = self.instance_si_uuid_post_with_http_info(
-                intent, si_uuid, **kwargs)  # noqa: E501
+                intent, **kwargs)  # noqa: E501
             return data
 
-    def instance_si_uuid_post_with_http_info(self, body, si_uuid,
+    def instance_si_uuid_post_with_http_info(self, body,
                                              **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
 
@@ -327,11 +320,12 @@ class WorkflowPhasedApi(object):
             path_params['siUUID'] = params['si_uuid']  # noqa: E501
 
         query_params = []
+        # sync is true and proceed is false by default
 
         # Authentication setting
         auth_settings = ['oAuth2Keycloak']  # noqa: E501
         return self.client.request('POST',
-                                   '/instance/' + si_uuid,
+                                   '/instance/' + kwargs['si_uuid'],
                                    body_params=body)
 
     def instance_get_status(self, **kwargs):  # noqa: E501
@@ -344,21 +338,19 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
+
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_status_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_status_get_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.instance_si_uuid_status_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            (data) = self.instance_si_uuid_status_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def instance_si_uuid_status_get_with_http_info(self, si_uuid,
+    def instance_si_uuid_status_get_with_http_info(self,
                                                    **kwargs):  # noqa: E501
         """Get instance status  # noqa: E501
         Retrieves the full instance status.  # noqa: E501
@@ -392,7 +384,7 @@ class WorkflowPhasedApi(object):
                 "Missing the required parameter `si_uuid` when calling `instance_si_uuid_status_get`"
             )  # noqa: E501
 
-        return self.client.request('GET', f'/instance/{si_uuid}/status')
+        return self.client.request('GET', f'/instance/{kwargs["si_uuid"]}/status')
 
     def instance_get_intents(self, **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
@@ -405,22 +397,19 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.intent_instance_si_uuid_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.intent_instance_si_uuid_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            (data) = self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def intent_instance_si_uuid_get_with_http_info(self, si_uuid,
+    def intent_instance_si_uuid_get_with_http_info(self,
                                                    **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
 
@@ -456,7 +445,7 @@ class WorkflowPhasedApi(object):
                 "Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`"
             )  # noqa: E501
 
-        return self.client.request('GET', '/intent/instance/' + si_uuid)
+        return self.client.request('GET', '/intent/instance/' + kwargs['si_uuid'])
 
     def profile_list(self, **kwargs):
         """Get skimmed profile data  # noqa: E501
@@ -576,22 +565,19 @@ class WorkflowPhasedApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.instance_si_uuid_verify_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.instance_si_uuid_verify_get_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.instance_si_uuid_verify_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            (data) = self.instance_si_uuid_verify_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def instance_si_uuid_verify_get_with_http_info(self, si_uuid,
+    def instance_si_uuid_verify_get_with_http_info(self,
                                                    **kwargs):  # noqa: E501
         """Retrieve verification data  # noqa: E501
         Requests the data from the last or current verification run.  # noqa: E501
@@ -625,4 +611,4 @@ class WorkflowPhasedApi(object):
                 "Missing the required parameter `si_uuid` when calling `instance_si_uuid_verify_get`"
             )  # noqa: E501
 
-        return self.client.request('GET', f'/instance/{self.si_uuid}/verify')
+        return self.client.request('GET', f'/instance/{kwargs["si_uuid"]}/verify')
