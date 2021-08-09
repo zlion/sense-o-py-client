@@ -49,7 +49,9 @@ class ApiClient(object):
 
     def getConfig(self, configFile='/etc/sense-o-auth.yaml'):
         if not os.path.isfile(configFile):
-            raise Exception('Config file not found: %s' % configFile)
+            configFile = os.getenv('HOME') + '/.sense-o-auth.yaml'
+            if not os.path.isfile(configFile):
+                raise Exception('Config file not found: %s' % configFile)
         with open(configFile, 'r') as fd:
             self.config = yload(fd.read(), Loader=FullLoader)
         self._validateConfig()

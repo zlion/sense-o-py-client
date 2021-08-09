@@ -41,22 +41,19 @@ class IntentApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        si_uuid = self.si_uuid
-        if kwargs.get('si_uuid'):
-            si_uuid = kwargs.get('si_uuid')
-        if not si_uuid:
+        if self.si_uuid:
+            kwargs['si_uuid'] = self.si_uuid
+        if not kwargs['si_uuid'] :
             raise ValueError("Missing the required parameter `si_uuid`")
 
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.intent_instance_si_uuid_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            return self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.intent_instance_si_uuid_get_with_http_info(
-                si_uuid, **kwargs)  # noqa: E501
+            (data) = self.intent_instance_si_uuid_get_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def intent_instance_si_uuid_get_with_http_info(self, si_uuid,
+    def intent_instance_si_uuid_get_with_http_info(self,
                                                    **kwargs):  # noqa: E501
         """Retrieve intents by service instance  # noqa: E501
 
@@ -92,7 +89,7 @@ class IntentApi(object):
                 "Missing the required parameter `si_uuid` when calling `intent_instance_si_uuid_get`"
             )  # noqa: E501
 
-        return self.client.request('GET', '/intent/instance/' + si_uuid)
+        return self.client.request('GET', '/intent/instance/' + kwargs['si_uuid'])
 
     def intent_describe(self, uuid, **kwargs):  # noqa: E501
         """Retrieve intent by UUID  # noqa: E501
