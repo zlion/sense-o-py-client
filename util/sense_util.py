@@ -41,6 +41,9 @@ if __name__ == "__main__":
             workflowApi.instance_new()
             response = workflowApi.instance_create(json.dumps(intent))
             print(response)
+            workflowApi.instance_operate('provision', sync='true')
+            status = workflowApi.instance_get_status()
+            print(f'provision status={status}')
         elif args.file:
             workflowApi = WorkflowCombinedApi()
             workflowApi.instance_new()
