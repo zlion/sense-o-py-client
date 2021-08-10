@@ -12,8 +12,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     operations = parser.add_mutually_exclusive_group()
-    operations.add_argument("-c", "--create", action="store_true",
+    operations.add_argument("-cr", "--create", action="store_true",
                             help="create service instance (requires one of optional -f, optional -u)")
+    operations.add_argument("-ca", "--cancel", action="store_true",
+                            help="cancel (and not delete) an existing service instance (requires -u)")
+    operations.add_argument("-r", "--reprovision", action="store_true",
+                            help="reprovision an existing service instance (requires -u)")
     operations.add_argument("-d", "--delete", action="store_true",
                             help="cancel and delete service instance (requires -u)")
     operations.add_argument("-D", "--delete-only", action="store_true",
@@ -41,6 +45,9 @@ if __name__ == "__main__":
             workflowApi.instance_new()
             response = workflowApi.instance_create(json.dumps(intent))
             print(response)
+            workflowApi.instance_operate('provision', sync='true')
+            status = workflowApi.instance_get_status()
+            print(f'provision status={status}')
         elif args.file:
             workflowApi = WorkflowCombinedApi()
             workflowApi.instance_new()
@@ -56,6 +63,24 @@ if __name__ == "__main__":
             workflowApi.instance_operate('provision', sync='true')
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
+    elif args.cancel:
+        if args.uuid:
+            workflowApi = WorkflowCombinedApi()
+            workflowApi.instance_operate('cancel', si_uuid=args.uuid[0], sync='true')
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            print(f'cancel status={status}')
+            if 'CANCEL - READY' in status:
+                print(f'cancel complete, use reprovision to instantiate again')
+            else:
+                print(f'cancel operation disrupted - instance not deleted - contact admin')
+        else:
+            raise ValueError("Missing the required parameter `uuid` ")
+    if args.reprovision:
+        if args.uuid:
+            workflowApi = WorkflowCombinedApi()
+            workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true')
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            print(f'reprovision status={status}')
     elif args.delete:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
