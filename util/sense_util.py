@@ -96,6 +96,13 @@ if __name__ == "__main__":
     elif args.delete_only:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            if 'error' in status:
+                raise ValueError(status)
+            if 'CANCEL - READY' not in status:
+                key = input(f"Delete an instance in '{status}' status (Y/n)?")
+                if key != 'Y':
+                    raise ValueError("Deletion aborted...")
             workflowApi.instance_delete(si_uuid=args.uuid[0])
         else:
             raise ValueError("Missing the required parameter `uuid` ")
