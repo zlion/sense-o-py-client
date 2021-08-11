@@ -44,7 +44,7 @@ if __name__ == "__main__":
             workflowApi = WorkflowCombinedApi()
             workflowApi.instance_new()
             response = workflowApi.instance_create(json.dumps(intent))
-            print(response)
+            print(f"creating service instance: {response}")
             workflowApi.instance_operate('provision', sync='true')
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
@@ -66,7 +66,15 @@ if __name__ == "__main__":
     elif args.cancel:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
-            workflowApi.instance_operate('cancel', si_uuid=args.uuid[0], sync='true')
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            if 'error' in status:
+                raise ValueError(status)
+            if 'CREATE' not in status and 'REINSTATE' not in status and 'MODIFY' not in status:
+                raise ValueError(f"cannot cancel an instance in '{status}' status...")
+            elif 'READY' not in status:
+                workflowApi.instance_operate('cancel', si_uuid=args.uuid[0], sync='true', force='true')
+            else:     
+                workflowApi.instance_operate('cancel', si_uuid=args.uuid[0], sync='true')
             status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
             print(f'cancel status={status}')
             if 'CANCEL - READY' in status:
@@ -78,7 +86,15 @@ if __name__ == "__main__":
     if args.reprovision:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
-            workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true')
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            if 'error' in status:
+                raise ValueError(status)
+            if 'CANCEL' not in status:
+                raise ValueError(f"cannot reprovision an instance in '{status}' status...")
+            elif 'READY' not in status:
+                workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true', force='true')
+            else:     
+                workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true')
             status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
             print(f'reprovision status={status}')
     elif args.delete:
