@@ -4,7 +4,6 @@ import requests
 from yaml import load as yload
 from yaml import FullLoader
 
-# TODO: config file path as init param
 class ApiClient(object):
     def __init__(self):
         # For now only pass config file; Later all params

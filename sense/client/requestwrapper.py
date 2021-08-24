@@ -21,6 +21,7 @@ class RequestWrapper(ApiClient):
                                headers=self.config['headers'],
                                verify=self.config['verify'],
                                params=params)
+            out.raise_for_status()
         return out.text
 
     def _put(self, api_path, data, params):
@@ -37,6 +38,7 @@ class RequestWrapper(ApiClient):
                                verify=self.config['verify'],
                                data=data,
                                params=params)
+        out.raise_for_status()
         return out.text
 
     def _post(self, api_path, data, params):
@@ -53,6 +55,7 @@ class RequestWrapper(ApiClient):
                                 verify=self.config['verify'],
                                 data=data,
                                 params=params)
+        out.raise_for_status()
         return out.text
 
     def _delete(self, api_path, params):
@@ -67,6 +70,7 @@ class RequestWrapper(ApiClient):
                                   headers=self.config['headers'],
                                   verify=self.config['verify'],
                                   params=params)
+        out.raise_for_status()
         return out.text
 
     def request(self, call_type, api_path, **kwargs):

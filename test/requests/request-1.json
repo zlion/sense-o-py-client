@@ -13,11 +13,11 @@
         "terminals": [
           {
             "vlan_tag": "any",
-            "uri": "urn:ogf:network:maxgigapop.net:2013:180-132.research.maxgigapop.net"
+            "uri": "urn:ogf:network:es.net:2013::sunn-cr55:1_1_c13_1:+"
           },
           {
             "vlan_tag": "any",
-            "uri": "urn:ogf:network:maxgigapop.net:2013:s0:1_1:wash-cr5"
+            "uri": "urn:ogf:network:es.net:2013::wash-cr5:6_1_1:+"
           }
         ]
       }
