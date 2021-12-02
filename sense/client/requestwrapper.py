@@ -90,7 +90,7 @@ class RequestWrapper(ApiClient):
         elif call_type == "DELETE":
             ret = self._delete(api_path, params)
 
-        if ret and ret.status_code > 300 and ret.headers.get("content-type") == "application/json":
+        if ret is not None and ret.status_code > 300 and ret.headers.get("content-type") == "application/json":
             json = ret.json()
             if "exception" in json:
                 return json.get("exception").get("message")
