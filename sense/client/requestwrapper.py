@@ -1,8 +1,10 @@
 import sys
+
 import requests
 
-sys.path.insert(0, '..')
 from sense.client.apiclient import ApiClient
+
+sys.path.insert(0, '..')
 
 
 class RequestWrapper(ApiClient):
@@ -21,8 +23,7 @@ class RequestWrapper(ApiClient):
                                headers=self.config['headers'],
                                verify=self.config['verify'],
                                params=params)
-            out.raise_for_status()
-        return out.text
+        return out
 
     def _put(self, api_path, data, params):
         url = self.config['REST_API'] + api_path
@@ -38,8 +39,7 @@ class RequestWrapper(ApiClient):
                                verify=self.config['verify'],
                                data=data,
                                params=params)
-        out.raise_for_status()
-        return out.text
+        return out
 
     def _post(self, api_path, data, params):
         url = self.config['REST_API'] + api_path
@@ -55,8 +55,7 @@ class RequestWrapper(ApiClient):
                                 verify=self.config['verify'],
                                 data=data,
                                 params=params)
-        out.raise_for_status()
-        return out.text
+        return out
 
     def _delete(self, api_path, params):
         url = self.config['REST_API'] + api_path
@@ -70,23 +69,30 @@ class RequestWrapper(ApiClient):
                                   headers=self.config['headers'],
                                   verify=self.config['verify'],
                                   params=params)
-        out.raise_for_status()
-        return out.text
+        return out
 
     def request(self, call_type, api_path, **kwargs):
+        ret = None
         params = None
         if kwargs.get('query_params'):
             params = kwargs.get('query_params')
 
         if call_type == "GET":
-            return self._get(api_path, params)
+            ret = self._get(api_path, params)
         elif call_type == "PUT":
-            return self._put(api_path, kwargs.get('body_params'), params)
+            ret = self._put(api_path, kwargs.get('body_params'), params)
         elif call_type == "POST":
             if kwargs.get('body_params'):
-                return self._post(api_path, kwargs.get('body_params'), params)
+                ret = self._post(api_path, kwargs.get('body_params'), params)
             else:
                 raise ValueError(
-                    "Missing the body parameter for POST to '%s'" % (api_path))
+                    "Missing the body parameter for POST to '%s'" % api_path)
         elif call_type == "DELETE":
-            return self._delete(api_path, params)
+            ret = self._delete(api_path, params)
+
+        if ret and ret.status_code > 300 and ret.headers.get("content-type") == "application/json":
+            json = ret.json()
+            if "exception" in json:
+                return json.get("exception").get("message")
+
+        return ret.text
