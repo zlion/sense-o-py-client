@@ -4,6 +4,8 @@ import requests
 from yaml import load as yload
 from yaml import FullLoader
 
+requests.packages.urllib3.disable_warnings()
+
 class ApiClient(object):
     def __init__(self):
         # For now only pass config file; Later all params
