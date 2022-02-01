@@ -38,7 +38,7 @@ if __name__ == "__main__":
     if args.create:
         if args.uuid:
             # create by straight profile
-            intent = {'profileID': args.uuid[0]}
+            intent = {'service_profile_uuid': args.uuid[0]}
             if args.name:
                 intent['alias'] = args.name[0]
             workflowApi = WorkflowCombinedApi()
