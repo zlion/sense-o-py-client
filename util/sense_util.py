@@ -7,6 +7,7 @@ import json
 
 from sense.client.workflow_combined_api import WorkflowCombinedApi
 from sense.client.profile_api import ProfileApi
+from sense.client.discover_api import DiscoverApi
 
 if __name__ == "__main__":
 
@@ -16,6 +17,10 @@ if __name__ == "__main__":
                             help="create service instance (requires one of optional -f, optional -u)")
     operations.add_argument("-ca", "--cancel", action="store_true",
                             help="cancel (and not delete) an existing service instance (requires -u)")
+    operations.add_argument("-co", "--compute", action="store_true",
+                            help="compute (compile only) a service intent (requires one of optional -f, optional -u)")
+    operations.add_argument("-pr", "--provision", action="store_true",
+                            help="provision an already computed service instance (requires -u)")
     operations.add_argument("-r", "--reprovision", action="store_true",
                             help="reprovision an existing service instance (requires -u)")
     operations.add_argument("-d", "--delete", action="store_true",
@@ -32,6 +37,8 @@ if __name__ == "__main__":
                         help="service profile uuid or instance uuid")
     parser.add_argument("-n", "--name", action="append",
                         help="service instance alias name")
+    parser.add_argument("--discover", action="append",
+                        help="discover information via model query")
 
     args = parser.parse_args()
 
@@ -45,24 +52,64 @@ if __name__ == "__main__":
             workflowApi.instance_new()
             response = workflowApi.instance_create(json.dumps(intent))
             print(f"creating service instance: {response}")
-            workflowApi.instance_operate('provision', sync='true')
+            try:
+                workflowApi.instance_operate('provision', sync='true')
+            except ValueError:
+                workflowApi.instance_delete()
+                raise
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
         elif args.file:
             workflowApi = WorkflowCombinedApi()
             workflowApi.instance_new()
             if not os.path.isfile(args.file[0]):
+                workflowApi.instance_delete()
                 raise Exception('request file not found: %s' % args.file[0])
             intent_file = open(args.file[0])
             intent = json.load(intent_file)
             if args.name:
                 intent['alias'] = args.name[0]
             intent_file.close()
-            response = workflowApi.instance_create(json.dumps(intent))
-            print(response)
+            try:
+                response = workflowApi.instance_create(json.dumps(intent))
+                print(response)
+            except ValueError:
+                workflowApi.instance_delete()
+                raise
             workflowApi.instance_operate('provision', sync='true')
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
+    elif args.compute:
+        if args.uuid:
+            # create by straight profile
+            intent = {'service_profile_uuid': args.uuid[0]}
+            if args.name:
+                intent['alias'] = args.name[0]
+            workflowApi = WorkflowCombinedApi()
+            workflowApi.instance_new()
+            try:
+                response = workflowApi.instance_create(json.dumps(intent))
+            except ValueError:
+                workflowApi.instance_delete()
+                raise
+            print(f"computed service instance: {response}")
+        elif args.file:
+            workflowApi = WorkflowCombinedApi()
+            workflowApi.instance_new()
+            if not os.path.isfile(args.file[0]):
+                workflowApi.instance_delete()
+                raise Exception('request file not found: %s' % args.file[0])
+            intent_file = open(args.file[0])
+            intent = json.load(intent_file)
+            if args.name:
+                intent['alias'] = args.name[0]
+            intent_file.close()
+            try:
+                response = workflowApi.instance_create(json.dumps(intent))
+            except ValueError:
+                workflowApi.instance_delete()
+                raise
+            print(f"computed service instance: {response}")
     elif args.cancel:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
@@ -83,7 +130,21 @@ if __name__ == "__main__":
                 print(f'cancel operation disrupted - instance not deleted - contact admin')
         else:
             raise ValueError("Missing the required parameter `uuid` ")
-    if args.reprovision:
+    elif args.provision:
+        if args.uuid:
+            workflowApi = WorkflowCombinedApi()
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            if 'error' in status:
+                raise ValueError(status)
+            if 'CREATE' not in status:
+                raise ValueError(f"cannot provision an instance in '{status}' status...")
+            elif 'COMPILED' not in status:
+                raise ValueError(f"cannot provision an instance in '{status}' status...")
+            else:
+                workflowApi.instance_operate('provision', si_uuid=args.uuid[0], sync='true')
+            status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
+            print(f'provision status={status}')
+    elif args.reprovision:
         if args.uuid:
             workflowApi = WorkflowCombinedApi()
             status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
@@ -136,3 +197,57 @@ if __name__ == "__main__":
             print(status)
         else:
             raise ValueError("Missing the required parameter `uuid` ")
+    elif args.discover:
+        discoverApi = DiscoverApi()
+        discover_opts = args.discover[0].split("=")
+        if discover_opts[0] == 'domain_list':
+            if len(discover_opts) != 1:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_domains_get()
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'domain_info':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_domain_id_get(discover_opts[1])
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'domain_peers':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_domain_id_peers_get(discover_opts[1])
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'domain_ipv6pool':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_domain_id_ipv6pool_get(discover_opts[1])
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'service_instances':
+            if len(discover_opts) != 1:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_service_instances_get()
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'lookup_name':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_lookup_name_get(discover_opts[1])
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'lookup_rooturi':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_lookup_rooturi_get(discover_opts[1])
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(str(response))
+        else:
+            raise ValueError(f"Invalid discover query option `{args.discover}`")

@@ -151,6 +151,69 @@ class DiscoverApi(object):
 
         return self.client.request('GET', f'/discover/{domain_id}/peers')
 
+    def discover_domain_id_ipv6pool_get(self, domain_id, **kwargs):  # noqa: E501
+        """ discover and description of ipv6 subnet pool for a given domain or end-site  # noqa: E501
+
+        List of ipv6 subnet pools for this domain (by URI or name)  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.discover_domain_id_ipv6pool_get(domain_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str domain_id: Name of URI of a target end-site domain (required)
+        :return: DomainDescription
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.discover_domain_id_ipv6pool_get_with_http_info(
+                domain_id, **kwargs)  # noqa: E501
+        else:
+            (data) = self.discover_domain_id_ipv6pool_get_with_http_info(
+                domain_id, **kwargs)  # noqa: E501
+            return data
+
+    def discover_domain_id_ipv6pool_get_with_http_info(self, domain_id,
+                                                    **kwargs):  # noqa: E501
+        """ discover and description of ipv6 subnet pool for a given domain or end-site  # noqa: E501
+
+        List of ipv6 subnet pools for this domain (by URI or name)  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.discover_domain_id_ipv6pool_get_with_http_info(domain_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str domain_id: Name of URI of a target end-site domain (required)
+        :return: DomainDescription
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['domain_id']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method discover_domain_id_ipv6pool_get" %
+                                key)
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'domain_id' is set
+        if ('domain_id' not in params or params['domain_id'] is None):
+            raise ValueError(
+                "Missing the required parameter `domain_id` when calling `discover_domain_id_ipv6pool_get`"
+            )  # noqa: E501
+
+        return self.client.request('GET', f'/discover/{domain_id}/ipv6pool')
+
     def discover_domains_get(self, **kwargs):  # noqa: E501
         """Topology domains  # noqa: E501
 
@@ -331,6 +394,72 @@ class DiscoverApi(object):
 
         return self.client.request('GET',
                                    f'/discover/lookup/{name}',
+                                   query_params=query_params)
+
+    def discover_lookup_rooturi_get(self, uri, **kwargs):  # noqa: E501
+        """Look up for domain root URI by given a resource URI  # noqa: E501
+
+        List of URI string  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.discover_lookup_rooturi_get(uri, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str uri: Resource URI (required)
+        :return: URI string
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.discover_lookup_rooturi_get_with_http_info(
+                uri, **kwargs)  # noqa: E501
+        else:
+            (data) = self.discover_lookup_rooturi_get_with_http_info(
+                uri, **kwargs)  # noqa: E501
+            return data
+
+    def discover_lookup_rooturi_get_with_http_info(self, uri,
+                                                **kwargs):  # noqa: E501
+        """Look up for domain root URI by given a resource URI  # noqa: E501
+
+        List of URI string  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.discover_lookup_rooturi_get(uri, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str uri: Resource URI (required)
+        :return: URI string
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['uri']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError("Got an unexpected keyword argument '%s'"
+                                " to method discover_lookup_name_get" % key)
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'name' is set
+        if ('uri' not in params or params['uri'] is None):
+            raise ValueError(
+                "Missing the required parameter `uri` when calling `discover_lookup_rooturi_get`"
+            )  # noqa: E501
+
+        query_params = []
+
+        return self.client.request('GET',
+                                   f'/discover/lookup/{uri}/rooturi',
                                    query_params=query_params)
 
     def discover_service_instances_get(self, **kwargs):  # noqa: E501

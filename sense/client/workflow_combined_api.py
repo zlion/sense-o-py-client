@@ -243,8 +243,10 @@ class WorkflowCombinedApi(object):
             raise ValueError(
                 "Missing the required parameter `si_uuid` when calling `instance_si_uuid_delete`"
             )  # noqa: E501
-
-        return self.client.request('DELETE', '/instance/' + kwargs['si_uuid'])
+        try:
+            return self.client.request('DELETE', '/instance/' + kwargs['si_uuid'])
+        except ValueError:
+            return self.client.request('DELETE', '/service/' + kwargs['si_uuid'])
 
     def instance_create(self, intent, **kwargs):  # noqa: E501
         """Create new service instance and/or add new intent  # noqa: E501
