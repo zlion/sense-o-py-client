@@ -80,22 +80,8 @@ if __name__ == "__main__":
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
     elif args.compute:
-        if args.uuid:
-            # create by straight profile
-            intent = {'service_profile_uuid': args.uuid[0]}
-            if args.name:
-                intent['alias'] = args.name[0]
+        if args.file:
             workflowApi = WorkflowCombinedApi()
-            workflowApi.instance_new()
-            try:
-                response = workflowApi.instance_create(json.dumps(intent))
-            except ValueError:
-                workflowApi.instance_delete()
-                raise
-            print(f"computed service instance: {response}")
-        elif args.file:
-            workflowApi = WorkflowCombinedApi()
-            workflowApi.instance_new()
             if not os.path.isfile(args.file[0]):
                 workflowApi.instance_delete()
                 raise Exception('request file not found: %s' % args.file[0])
@@ -104,6 +90,24 @@ if __name__ == "__main__":
             if args.name:
                 intent['alias'] = args.name[0]
             intent_file.close()
+            if args.uuid:
+                workflowApi.si_uuid = args.uuid[0]
+                response = workflowApi.instance_create(json.dumps(intent))
+            else:
+                workflowApi.instance_new()
+                try:
+                    response = workflowApi.instance_create(json.dumps(intent))
+                except ValueError:
+                    workflowApi.instance_delete()
+                    raise
+            print(f"computed service instance: {response}")
+        elif args.uuid:
+            # create by straight profile
+            intent = {'service_profile_uuid': args.uuid[0]}
+            if args.name:
+                intent['alias'] = args.name[0]
+            workflowApi = WorkflowCombinedApi()
+            workflowApi.instance_new()
             try:
                 response = workflowApi.instance_create(json.dumps(intent))
             except ValueError:
