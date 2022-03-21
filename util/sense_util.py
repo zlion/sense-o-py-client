@@ -50,13 +50,13 @@ if __name__ == "__main__":
                 intent['alias'] = args.name[0]
             workflowApi = WorkflowCombinedApi()
             workflowApi.instance_new()
-            response = workflowApi.instance_create(json.dumps(intent))
-            print(f"creating service instance: {response}")
             try:
-                workflowApi.instance_operate('provision', sync='true')
+                response = workflowApi.instance_create(json.dumps(intent))
+                print(f"creating service instance: {response}")
             except ValueError:
                 workflowApi.instance_delete()
                 raise
+            workflowApi.instance_operate('provision', sync='true')
             status = workflowApi.instance_get_status()
             print(f'provision status={status}')
         elif args.file:
