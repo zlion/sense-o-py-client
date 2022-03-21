@@ -39,11 +39,37 @@ if __name__ == "__main__":
                         help="service instance alias name")
     parser.add_argument("--discover", action="append",
                         help="discover information via model query")
+    parser.add_argument("--intent", action="append",
+                        help="intent UUID parameter")
 
     args = parser.parse_args()
 
     if args.create:
-        if args.uuid:
+        if args.file:
+            workflowApi = WorkflowCombinedApi()
+            if not os.path.isfile(args.file[0]):
+                workflowApi.instance_delete()
+                raise Exception('request file not found: %s' % args.file[0])
+            intent_file = open(args.file[0])
+            intent = json.load(intent_file)
+            if args.name:
+                intent['alias'] = args.name[0]
+            intent_file.close()
+            if args.uuid:
+                workflowApi.si_uuid = args.uuid[0]
+                response = workflowApi.instance_create(json.dumps(intent))
+            else:
+                workflowApi.instance_new()
+                try:
+                    response = workflowApi.instance_create(json.dumps(intent))
+                except ValueError:
+                    workflowApi.instance_delete()
+                    raise
+            print(response)
+            workflowApi.instance_operate('provision', sync='true')
+            status = workflowApi.instance_get_status()
+            print(f'provision status={status}')
+        elif args.uuid:
             # create by straight profile
             intent = {'service_profile_uuid': args.uuid[0]}
             if args.name:
@@ -53,26 +79,6 @@ if __name__ == "__main__":
             try:
                 response = workflowApi.instance_create(json.dumps(intent))
                 print(f"creating service instance: {response}")
-            except ValueError:
-                workflowApi.instance_delete()
-                raise
-            workflowApi.instance_operate('provision', sync='true')
-            status = workflowApi.instance_get_status()
-            print(f'provision status={status}')
-        elif args.file:
-            workflowApi = WorkflowCombinedApi()
-            workflowApi.instance_new()
-            if not os.path.isfile(args.file[0]):
-                workflowApi.instance_delete()
-                raise Exception('request file not found: %s' % args.file[0])
-            intent_file = open(args.file[0])
-            intent = json.load(intent_file)
-            if args.name:
-                intent['alias'] = args.name[0]
-            intent_file.close()
-            try:
-                response = workflowApi.instance_create(json.dumps(intent))
-                print(response)
             except ValueError:
                 workflowApi.instance_delete()
                 raise
@@ -157,9 +163,15 @@ if __name__ == "__main__":
             if 'CANCEL' not in status:
                 raise ValueError(f"cannot reprovision an instance in '{status}' status...")
             elif 'READY' not in status:
-                workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true', force='true')
-            else:     
-                workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true')
+                if args.intent:
+                    workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true', force='true', intent=args.intent[0])
+                else:
+                    workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true', force='true')
+            else:
+                if args.intent:
+                    workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true', intent=args.intent[0])
+                else:
+                    workflowApi.instance_operate('reprovision', si_uuid=args.uuid[0], sync='true')
             status = workflowApi.instance_get_status(si_uuid=args.uuid[0])
             print(f'reprovision status={status}')
     elif args.delete:
