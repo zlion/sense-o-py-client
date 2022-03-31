@@ -254,7 +254,21 @@ if __name__ == "__main__":
         elif discover_opts[0] == 'lookup_name':
             if len(discover_opts) != 2:
                 raise ValueError(f"Invalid discover query option `{args.discover}`")
-            response = discoverApi.discover_lookup_name_get(discover_opts[1])
+            response = discoverApi.discover_lookup_name_get(discover_opts[1], search='name')
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'lookup_tag':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_lookup_name_get(discover_opts[1], search='tag')
+            if len(response) == 0 or "ERROR" in response:
+                raise ValueError(f"Discover query failed with option `{args.discover}`")
+            print(json.dumps(json.loads(response), indent=2))
+        elif discover_opts[0] == 'lookup_address':
+            if len(discover_opts) != 2:
+                raise ValueError(f"Invalid discover query option `{args.discover}`")
+            response = discoverApi.discover_lookup_name_get(discover_opts[1], search='NetworkAddress')
             if len(response) == 0 or "ERROR" in response:
                 raise ValueError(f"Discover query failed with option `{args.discover}`")
             print(json.dumps(json.loads(response), indent=2))
