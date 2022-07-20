@@ -1,0 +1,39 @@
+{
+  "service": "dnc",
+  "alias": "SENSE-API-2.0-Alpha-T1s",
+  "data": {
+    "type": "Multi-Path P2P VLAN",
+    "connections": [
+      {
+        "bandwidth":
+          {
+            "qos_class":"guaranteedCapped",
+            "capacity": "1000"
+          },
+        "name": "Connection 1",
+        "terminals": [
+          {
+            "vlan_tag": "any",
+            "assign_ip": false,
+            "uri": "urn:ogf:network:al2s.internet2.net:oess:node+core2.sunn.net.internet2.edu:port+HundredGigE0_0_0_24"
+          },
+          {
+            "vlan_tag": "any",
+            "assign_ip": false,
+            "uri": "urn:ogf:network:al2s.internet2.net:oess:node+core2.chic.net.internet2.edu:port+HundredGigE0_0_0_26"
+          }
+        ]
+      }
+    ]
+  },
+  "queries": [
+    {
+      "ask": "maximum-bandwidth",
+      "options": [
+        {
+            "name": "Connection 1"
+        }
+      ]
+    }
+  ]
+}
